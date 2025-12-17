@@ -1,0 +1,20 @@
+{
+  "name": "carline",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CarLine-project/car-line-mono.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CarLine-project/car-line-mono/issues"
+  },
+  "homepage": "https://github.com/CarLine-project/car-line-mono#readme"
+}
