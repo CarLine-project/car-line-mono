@@ -1,0 +1,8 @@
+{
+  "name": "Car Line",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite",
+  "id": "20eec0f1"
+}
