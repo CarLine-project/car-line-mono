@@ -1,3 +1,4 @@
 ./node_modules
 ./car-line-back/node_modules
 ./car-line-front/node_modules
+node_modules
