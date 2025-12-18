@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:start": "cd car-line-back && docker-compose up -d postgres",
+    "db:stop": "cd car-line-back && docker-compose down",
+    "db:init": "cd car-line-back && npm run db:init",
+    "start": "concurrently -n \"DB,BACKEND,FRONTEND\" -c \"blue,green,yellow\" \"npm run db:start\" \"cd car-line-back && npm run start:dev\" \"cd car-line-front && npm run dev\"",
+    "start:backend": "cd car-line-back && npm run start:dev",
+    "start:frontend": "cd car-line-front && npm run dev"
   },
   "repository": {
     "type": "git",
@@ -16,5 +22,15 @@
   "bugs": {
     "url": "https://github.com/CarLine-project/car-line-mono/issues"
   },
-  "homepage": "https://github.com/CarLine-project/car-line-mono#readme"
+  "homepage": "https://github.com/CarLine-project/car-line-mono#readme",
+  "dependencies": {
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/typeorm": "^11.0.0",
+    "pg": "^8.16.3",
+    "typeorm": "^0.3.28"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.16.0",
+    "concurrently": "^9.1.2"
+  }
 }
