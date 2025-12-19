@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CarLine - Core Functionality Sequence Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px 40px;
+        text-align: center;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 2.5em;
+        font-weight: 700;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .header p {
+        margin: 10px 0 0;
+        font-size: 1.1em;
+        opacity: 0.95;
+      }
+
+      .diagram-container {
+        padding: 40px;
+        background: #f8f9fa;
+        position: relative;
+      }
+
+      .diagram-wrapper {
+        overflow: hidden;
+        position: relative;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        cursor: grab;
+        min-height: 600px;
+      }
+
+      .diagram-wrapper:active {
+        cursor: grabbing;
+      }
+
+      .mermaid {
+        background: white;
+        padding: 30px;
+        transform-origin: 0 0;
+        transition: transform 0.2s ease;
+      }
+
+      .zoom-controls {
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 100;
+      }
+
+      .zoom-btn {
+        background: white;
+        border: 2px solid #667eea;
+        color: #667eea;
+        width: 45px;
+        height: 45px;
+        border-radius: 8px;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        transition: all 0.2s ease;
+      }
+
+      .zoom-btn:hover {
+        background: #667eea;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      }
+
+      .zoom-btn:active {
+        transform: translateY(0);
+      }
+
+      .zoom-level {
+        background: white;
+        border: 2px solid #667eea;
+        color: #667eea;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        user-select: none;
+      }
+
+      .zoom-help {
+        position: absolute;
+        bottom: 50px;
+        right: 50px;
+        background: rgba(255, 255, 255, 0.95);
+        border: 2px solid #667eea;
+        color: #764ba2;
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        z-index: 100;
+      }
+
+      .zoom-help strong {
+        color: #667eea;
+      }
+
+      .description {
+        padding: 30px 40px;
+        background: white;
+      }
+
+      .description h2 {
+        color: #667eea;
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 1.8em;
+      }
+
+      .description p {
+        line-height: 1.8;
+        color: #495057;
+        margin-bottom: 15px;
+      }
+
+      .description h3 {
+        color: #764ba2;
+        margin-top: 25px;
+        margin-bottom: 15px;
+        font-size: 1.3em;
+      }
+
+      .description ul {
+        line-height: 1.8;
+        color: #495057;
+      }
+
+      .description li {
+        margin-bottom: 8px;
+      }
+
+      .scenarios {
+        padding: 30px 40px;
+        background: #f8f9fa;
+        border-top: 2px solid #e9ecef;
+      }
+
+      .scenarios h2 {
+        color: #667eea;
+        margin-top: 0;
+        margin-bottom: 25px;
+        font-size: 1.8em;
+      }
+
+      .scenario-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+      }
+
+      .scenario-card {
+        background: white;
+        padding: 25px;
+        border-radius: 8px;
+        border-left: 4px solid #667eea;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .scenario-card h3 {
+        margin-top: 0;
+        color: #764ba2;
+        font-size: 1.2em;
+        margin-bottom: 15px;
+      }
+
+      .scenario-card p {
+        margin: 0;
+        color: #6c757d;
+        line-height: 1.6;
+      }
+
+      .footer {
+        padding: 20px 40px;
+        text-align: center;
+        background: #f8f9fa;
+        color: #6c757d;
+        border-top: 2px solid #e9ecef;
+      }
+
+      @media print {
+        body {
+          background: white;
+        }
+        .container {
+          box-shadow: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🔄 CarLine Sequence Diagram</h1>
+        <p>Core Functionality - Expense Tracking Flow</p>
+      </div>
+
+      <div class="diagram-container">
+        <div class="zoom-controls">
+          <button class="zoom-btn" id="zoom-in" title="Збільшити (Scroll Up)">
+            +
+          </button>
+          <div class="zoom-level" id="zoom-level">100%</div>
+          <button class="zoom-btn" id="zoom-out" title="Зменшити (Scroll Down)">
+            −
+          </button>
+          <button class="zoom-btn" id="zoom-reset" title="Скинути">⟲</button>
+        </div>
+        <div class="zoom-help">
+          <strong>💡 Підказка:</strong> Коліщатко миші для zoom, перетягуйте для
+          переміщення
+        </div>
+        <div class="diagram-wrapper" id="diagram-wrapper">
+          <pre class="mermaid" id="mermaid-diagram">
+sequenceDiagram
+    actor User as 👤 Користувач
+    participant Frontend as 🖥️ Frontend<br/>(React/Ionic)
+    participant Controller as 🎮 ExpensesController
+    participant Service as ⚙️ ExpensesService
+    participant Guard as 🛡️ CarOwnershipGuard
+    participant CarsService as 🚗 CarsService
+    participant DB as 💾 PostgreSQL<br/>Database
+    
+    %% Додавання витрати
+    Note over User,DB: Сценарій 1: Додавання нової витрати
+    
+    User->>Frontend: 1. Вводить дані витрати<br/>(сума, категорія, дата, опис)
+    Frontend->>Frontend: 2. Валідація даних на клієнті
+    Frontend->>Controller: 3. POST /expenses/:carId<br/>CreateExpenseDto
+    
+    Note over Controller,Service: JWT токен в заголовках
+    Controller->>Guard: 4. Перевірка прав доступу
+    Guard->>CarsService: 5. verifyOwnership(carId, userId)
+    CarsService->>DB: 6. SELECT car WHERE id = carId<br/>AND userId = userId
+    DB-->>CarsService: 7. Car entity
+    
+    alt Авто не належить користувачу
+        CarsService-->>Guard: ❌ ForbiddenException
+        Guard-->>Controller: Помилка доступу
+        Controller-->>Frontend: 403 Forbidden
+        Frontend-->>User: "У вас немає доступу"
+    else Авто належить користувачу
+        CarsService-->>Guard: ✅ Car verified
+        Guard-->>Controller: Дозвіл надано
+        
+        Controller->>Service: 8. create(carId, createExpenseDto)
+        Service->>Service: 9. Валідація бізнес-логіки
+        
+        Service->>DB: 10. INSERT INTO expense<br/>(carId, categoryId, amount, ...)
+        DB-->>Service: 11. Створений expense
+        
+        Service->>DB: 12. SELECT category<br/>WHERE id = categoryId
+        DB-->>Service: 13. ExpenseCategory entity
+        
+        Service-->>Controller: 14. Expense з категорією
+        Controller-->>Frontend: 15. 201 Created<br/>{ expense: {...} }
+        Frontend-->>Frontend: 16. Оновлення списку витрат
+        Frontend-->>User: ✅ "Витрату додано успішно!"
+    end
+    
+    %% Отримання статистики
+    Note over User,DB: Сценарій 2: Перегляд статистики витрат
+    
+    User->>Frontend: 17. Переходить до розділу статистики
+    Frontend->>Controller: 18. GET /expenses/:carId/stats?period=month
+    
+    Controller->>Guard: 19. Перевірка прав доступу
+    Guard->>CarsService: 20. verifyOwnership(carId, userId)
+    CarsService->>DB: 21. SELECT car...
+    DB-->>CarsService: 22. Car entity
+    CarsService-->>Guard: ✅ Verified
+    Guard-->>Controller: Дозвіл надано
+    
+    Controller->>Service: 23. getExpenseStats(carId, 'month')
+    Service->>DB: 24. SELECT SUM(amount), category<br/>WHERE carId = ? AND date >= ?<br/>GROUP BY categoryId
+    DB-->>Service: 25. Агреговані дані
+    
+    Service->>DB: 26. SELECT AVG(amount)<br/>FROM expenses
+    DB-->>Service: 27. Середні значення
+    
+    Service-->>Controller: 28. ExpenseStats<br/>{ total, byCategory, average, ... }
+    Controller-->>Frontend: 29. 200 OK<br/>{ stats: {...} }
+    Frontend-->>Frontend: 30. Побудова графіків
+    Frontend-->>User: 📊 Відображення статистики
+    
+    %% Оновлення витрати
+    Note over User,DB: Сценарій 3: Редагування витрати
+    
+    User->>Frontend: 31. Натискає редагувати витрату
+    Frontend->>Controller: 32. PATCH /expenses/:id<br/>UpdateExpenseDto
+    
+    Controller->>Service: 33. update(id, updateExpenseDto)
+    Service->>DB: 34. SELECT expense WHERE id = ?
+    DB-->>Service: 35. Existing expense
+    
+    Service->>Service: 36. Валідація змін
+    Service->>DB: 37. UPDATE expense SET ...<br/>WHERE id = ?
+    DB-->>Service: 38. Updated expense
+    
+    Service-->>Controller: 39. Updated expense entity
+    Controller-->>Frontend: 40. 200 OK<br/>{ expense: {...} }
+    Frontend-->>Frontend: 41. Оновлення UI
+    Frontend-->>User: ✅ "Витрату оновлено!"
+    
+    %% Видалення
+    Note over User,DB: Сценарій 4: Видалення витрати
+    
+    User->>Frontend: 42. Підтверджує видалення
+    Frontend->>Controller: 43. DELETE /expenses/:id
+    Controller->>Service: 44. remove(id)
+    Service->>DB: 45. DELETE FROM expense<br/>WHERE id = ?
+    DB-->>Service: 46. Deleted successfully
+    Service-->>Controller: 47. void
+    Controller-->>Frontend: 48. 200 OK
+    Frontend-->>Frontend: 49. Видалення з UI
+    Frontend-->>User: ✅ "Витрату видалено!"
+          </pre>
+        </div>
+      </div>
+
+      <div class="description">
+        <h2>📝 Опис діаграми</h2>
+        <p>
+          Ця діаграма послідовності ілюструє повний цикл роботи з витратами в
+          додатку CarLine. Показані основні взаємодії між компонентами системи
+          при виконанні CRUD операцій.
+        </p>
+
+        <h3>Учасники взаємодії:</h3>
+        <ul>
+          <li>
+            <strong>Користувач</strong> - ініціює дії через інтерфейс додатку
+          </li>
+          <li>
+            <strong>Frontend (React/Ionic)</strong> - клієнтська частина,
+            обробляє введення та відображає результати
+          </li>
+          <li>
+            <strong>ExpensesController</strong> - обробляє HTTP запити, валідує
+            DTO
+          </li>
+          <li>
+            <strong>CarOwnershipGuard</strong> - перевіряє права доступу
+            користувача до автомобіля
+          </li>
+          <li>
+            <strong>CarsService</strong> - допоміжний сервіс для верифікації
+            власності
+          </li>
+          <li>
+            <strong>ExpensesService</strong> - бізнес-логіка управління
+            витратами
+          </li>
+          <li><strong>PostgreSQL Database</strong> - зберігання даних</li>
+        </ul>
+
+        <h3>Ключові особливості:</h3>
+        <ul>
+          <li>
+            Кожен запит проходить через <strong>guard</strong> для перевірки
+            прав доступу
+          </li>
+          <li>
+            Використовується <strong>JWT токен</strong> для автентифікації (не
+            показано детально)
+          </li>
+          <li>
+            Валідація даних на <strong>двох рівнях</strong>: клієнт та сервер
+          </li>
+          <li>
+            Статистика розраховується за допомогою
+            <strong>SQL агрегації</strong>
+          </li>
+          <li><strong>Транзакційність</strong> операцій з базою даних</li>
+        </ul>
+      </div>
+
+      <div class="scenarios">
+        <h2>🎯 Сценарії використання</h2>
+
+        <div class="scenario-grid">
+          <div class="scenario-card">
+            <h3>1️⃣ Додавання витрати</h3>
+            <p>
+              Користувач вводить дані про витрату (заправка, ремонт, мийка).
+              Система перевіряє права та зберігає дані з прив'язкою до
+              категорії.
+            </p>
+          </div>
+
+          <div class="scenario-card">
+            <h3>2️⃣ Перегляд статистики</h3>
+            <p>
+              Система розраховує загальну суму витрат, середні значення,
+              розподіл по категоріях за вибраний період (місяць, квартал, рік).
+            </p>
+          </div>
+
+          <div class="scenario-card">
+            <h3>3️⃣ Редагування витрати</h3>
+            <p>
+              Користувач може виправити помилку в даних. Система валідує зміни
+              та оновлює запис з збереженням історії через timestamps.
+            </p>
+          </div>
+
+          <div class="scenario-card">
+            <h3>4️⃣ Видалення витрати</h3>
+            <p>
+              При видаленні помилкового запису система запитує підтвердження та
+              видаляє дані з бази. Операція незворотна.
+            </p>
+          </div>
+
+          <div class="scenario-card">
+            <h3>🛡️ Безпека</h3>
+            <p>
+              CarOwnershipGuard забезпечує, що користувач може працювати лише з
+              даними власних автомобілів. Запобігає несанкціонованому доступу.
+            </p>
+          </div>
+
+          <div class="scenario-card">
+            <h3>📊 Аналітика</h3>
+            <p>
+              Система надає детальну аналітику: загальні витрати, витрати по
+              категоріях, тренди, порівняння з попередніми періодами.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>CarLine Core Functionality Flow • Expense Management Module</p>
+      </div>
+    </div>
+
+    <script>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: "default",
+        themeVariables: {
+          primaryColor: "#fff",
+          primaryTextColor: "#000",
+          primaryBorderColor: "#667eea",
+          lineColor: "#764ba2",
+          secondaryColor: "#f8f9fa",
+          tertiaryColor: "#e9ecef",
+          actorBkg: "#667eea",
+          actorBorder: "#764ba2",
+          actorTextColor: "#fff",
+          actorLineColor: "#764ba2",
+          signalColor: "#333",
+          signalTextColor: "#000",
+          labelBoxBkgColor: "#667eea",
+          labelBoxBorderColor: "#764ba2",
+          labelTextColor: "#fff",
+          loopTextColor: "#000",
+          noteBorderColor: "#764ba2",
+          noteBkgColor: "#f1f3f5",
+          noteTextColor: "#000",
+          activationBorderColor: "#764ba2",
+          activationBkgColor: "#e9ecef",
+          sequenceNumberColor: "#fff",
+          fontFamily: '"Monaco", "Courier New", monospace',
+        },
+        sequence: {
+          useMaxWidth: true,
+          wrap: true,
+          wrapPadding: 10,
+          showSequenceNumbers: false,
+          actorMargin: 50,
+          width: 150,
+          height: 65,
+          boxMargin: 10,
+          boxTextMargin: 5,
+          noteMargin: 10,
+          messageMargin: 35,
+        },
+      });
+
+      // Zoom and Pan functionality
+      let scale = 1;
+      let translateX = 0;
+      let translateY = 0;
+      let isPanning = false;
+      let startX = 0;
+      let startY = 0;
+
+      const diagram = document.getElementById("mermaid-diagram");
+      const wrapper = document.getElementById("diagram-wrapper");
+      const zoomLevel = document.getElementById("zoom-level");
+      const zoomInBtn = document.getElementById("zoom-in");
+      const zoomOutBtn = document.getElementById("zoom-out");
+      const zoomResetBtn = document.getElementById("zoom-reset");
+
+      const MIN_SCALE = 0.3;
+      const MAX_SCALE = 3;
+      const ZOOM_STEP = 0.1;
+
+      function updateTransform() {
+        diagram.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+        zoomLevel.textContent = Math.round(scale * 100) + "%";
+      }
+
+      function zoom(delta) {
+        const oldScale = scale;
+        scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale + delta));
+
+        const rect = wrapper.getBoundingClientRect();
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const scaleDiff = scale - oldScale;
+        translateX -= centerX * scaleDiff;
+        translateY -= centerY * scaleDiff;
+
+        updateTransform();
+      }
+
+      zoomInBtn.addEventListener("click", () => zoom(ZOOM_STEP));
+      zoomOutBtn.addEventListener("click", () => zoom(-ZOOM_STEP));
+      zoomResetBtn.addEventListener("click", () => {
+        scale = 1;
+        translateX = 0;
+        translateY = 0;
+        updateTransform();
+      });
+
+      wrapper.addEventListener("wheel", (e) => {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -ZOOM_STEP : ZOOM_STEP;
+        zoom(delta);
+      });
+
+      wrapper.addEventListener("mousedown", (e) => {
+        isPanning = true;
+        startX = e.clientX - translateX;
+        startY = e.clientY - translateY;
+        wrapper.style.cursor = "grabbing";
+      });
+
+      document.addEventListener("mousemove", (e) => {
+        if (!isPanning) return;
+        translateX = e.clientX - startX;
+        translateY = e.clientY - startY;
+        updateTransform();
+      });
+
+      document.addEventListener("mouseup", () => {
+        if (isPanning) {
+          isPanning = false;
+          wrapper.style.cursor = "grab";
+        }
+      });
+
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let lastTouchDistance = 0;
+
+      wrapper.addEventListener("touchstart", (e) => {
+        if (e.touches.length === 1) {
+          touchStartX = e.touches[0].clientX - translateX;
+          touchStartY = e.touches[0].clientY - translateY;
+        } else if (e.touches.length === 2) {
+          const dx = e.touches[0].clientX - e.touches[1].clientX;
+          const dy = e.touches[0].clientY - e.touches[1].clientY;
+          lastTouchDistance = Math.sqrt(dx * dx + dy * dy);
+        }
+      });
+
+      wrapper.addEventListener("touchmove", (e) => {
+        e.preventDefault();
+        if (e.touches.length === 1) {
+          translateX = e.touches[0].clientX - touchStartX;
+          translateY = e.touches[0].clientY - touchStartY;
+          updateTransform();
+        } else if (e.touches.length === 2) {
+          const dx = e.touches[0].clientX - e.touches[1].clientX;
+          const dy = e.touches[0].clientY - e.touches[1].clientY;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          const delta = (distance - lastTouchDistance) * 0.01;
+          zoom(delta);
+          lastTouchDistance = distance;
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "+" || e.key === "=") {
+          zoom(ZOOM_STEP);
+        } else if (e.key === "-" || e.key === "_") {
+          zoom(-ZOOM_STEP);
+        } else if (e.key === "0" || e.key === "Escape") {
+          scale = 1;
+          translateX = 0;
+          translateY = 0;
+          updateTransform();
+        }
+      });
+    </script>
+  </body>
+</html>

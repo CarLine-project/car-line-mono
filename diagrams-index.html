@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CarLine - Діаграми проекту</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 40px 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .header {
+        text-align: center;
+        color: white;
+        margin-bottom: 50px;
+      }
+
+      .header h1 {
+        font-size: 3em;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .header .emoji {
+        font-size: 1.2em;
+      }
+
+      .header p {
+        font-size: 1.3em;
+        opacity: 0.95;
+      }
+
+      .diagrams-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-bottom: 30px;
+      }
+
+      .diagram-card {
+        background: white;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+
+      .diagram-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+      }
+
+      .diagram-card.class-diagram {
+        border-top: 6px solid #667eea;
+      }
+
+      .diagram-card.sequence-diagram {
+        border-top: 6px solid #f093fb;
+      }
+
+      .diagram-icon {
+        font-size: 3em;
+        margin-bottom: 15px;
+        display: block;
+      }
+
+      .diagram-card h2 {
+        color: #667eea;
+        margin-bottom: 10px;
+        font-size: 1.5em;
+      }
+
+      .diagram-card.sequence-diagram h2 {
+        color: #f093fb;
+      }
+
+      .diagram-card p {
+        color: #6c757d;
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+
+      .diagram-card .features {
+        list-style: none;
+        padding: 0;
+      }
+
+      .diagram-card .features li {
+        padding: 5px 0;
+        color: #495057;
+        font-size: 0.95em;
+      }
+
+      .diagram-card .features li:before {
+        content: "✓ ";
+        color: #667eea;
+        font-weight: bold;
+        margin-right: 5px;
+      }
+
+      .diagram-card.sequence-diagram .features li:before {
+        color: #f093fb;
+      }
+
+      .diagram-card .btn {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 12px 24px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .diagram-card.sequence-diagram .btn {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      }
+
+      .diagram-card .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .footer {
+        text-align: center;
+        color: white;
+        margin-top: 50px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+      }
+
+      .footer p {
+        margin: 5px 0;
+        opacity: 0.9;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+        margin: 40px 0;
+      }
+
+      .stat-card {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .stat-card .number {
+        font-size: 2.5em;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .stat-card .label {
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-top: 5px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 2em;
+        }
+
+        .header p {
+          font-size: 1.1em;
+        }
+
+        .diagrams-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1><span class="emoji">🚗</span> CarLine</h1>
+        <p>Архітектурна документація проекту</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="number">4</div>
+          <div class="label">Діаграми</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">13</div>
+          <div class="label">Класів</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">3</div>
+          <div class="label">Flow сценарії</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">100%</div>
+          <div class="label">Інтерактивні</div>
+        </div>
+      </div>
+
+      <h2
+        style="
+          color: white;
+          text-align: center;
+          margin-bottom: 30px;
+          font-size: 2em;
+        "
+      >
+        📊 Діаграми класів
+      </h2>
+
+      <div class="diagrams-grid">
+        <a href="class-diagram.html" class="diagram-card class-diagram">
+          <span class="diagram-icon">📋</span>
+          <h2>Повна діаграма класів</h2>
+          <p>
+            Детальна діаграма з усіма властивостями, методами та зв'язками між
+            класами системи
+          </p>
+          <ul class="features">
+            <li>7 Entity класів з полями</li>
+            <li>6 Service класів з методами</li>
+            <li>48 методів загалом</li>
+            <li>Всі relationship детально</li>
+          </ul>
+          <span class="btn">Відкрити діаграму →</span>
+        </a>
+
+        <a href="class-diagram-simple.html" class="diagram-card class-diagram">
+          <span class="diagram-icon">🎯</span>
+          <h2>Спрощена діаграма класів</h2>
+          <p>
+            Мінімалістична діаграма з фокусом на структуру та зв'язки без
+            деталей
+          </p>
+          <ul class="features">
+            <li>Тільки назви класів</li>
+            <li>Чисті зв'язки</li>
+            <li>Легко читається</li>
+            <li>Ідеально для презентацій</li>
+          </ul>
+          <span class="btn">Відкрити діаграму →</span>
+        </a>
+      </div>
+
+      <h2
+        style="
+          color: white;
+          text-align: center;
+          margin: 50px 0 30px;
+          font-size: 2em;
+        "
+      >
+        🔄 Діаграми послідовності
+      </h2>
+
+      <div class="diagrams-grid">
+        <a
+          href="sequence-diagram-core.html"
+          class="diagram-card sequence-diagram"
+        >
+          <span class="diagram-icon">💰</span>
+          <h2>Основний функціонал</h2>
+          <p>
+            Повний цикл роботи з витратами: додавання, перегляд статистики,
+            редагування та видалення
+          </p>
+          <ul class="features">
+            <li>4 основних сценарії</li>
+            <li>CRUD операції детально</li>
+            <li>Перевірка прав доступу</li>
+            <li>Взаємодія з базою даних</li>
+          </ul>
+          <span class="btn">Відкрити діаграму →</span>
+        </a>
+
+        <a
+          href="sequence-diagram-ai.html"
+          class="diagram-card sequence-diagram"
+        >
+          <span class="diagram-icon">🤖</span>
+          <h2>AI обробка фото</h2>
+          <p>
+            Розпізнавання чеків та одометра за допомогою OCR та GPT-4 Vision для
+            автоматичного введення даних
+          </p>
+          <ul class="features">
+            <li>OCR + GPT-4 Vision API</li>
+            <li>Розпізнавання чеків</li>
+            <li>Читання одометра</li>
+            <li>Валідація та впевненість</li>
+          </ul>
+          <span class="btn">Відкрити діаграму →</span>
+        </a>
+      </div>
+
+      <div class="footer">
+        <p><strong>🎨 Всі діаграми інтерактивні</strong></p>
+        <p>Zoom (коліщатко миші), Pan (перетягування), Кнопки керування</p>
+        <p style="margin-top: 20px; opacity: 0.8">
+          CarLine Project • Architecture Documentation • 2024
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
