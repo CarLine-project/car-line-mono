@@ -10,6 +10,7 @@ import { CarsModule } from './cars/cars.module';
 import { MileageModule } from './mileage/mileage.module';
 import { ExpensesModule } from './expenses/expenses.module';
 import { MaintenanceModule } from './maintenance/maintenance.module';
+import { AiModule } from './ai/ai.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import typeormConfig from './config/typeorm.config';
 
@@ -35,6 +36,7 @@ import typeormConfig from './config/typeorm.config';
     MileageModule,
     ExpensesModule,
     MaintenanceModule,
+    AiModule,
   ],
   controllers: [AppController],
   providers: [

@@ -1,0 +1,36 @@
+### AI Receipt Processing - HTTP Requests for Testing
+### Use with VSCode REST Client extension or copy to Postman
+
+### Variables (update these)
+@baseUrl = http://localhost:3000
+@authToken = your-jwt-token-here
+@carId = your-car-uuid-here
+
+### 1. Health Check - Test if AI service is configured
+GET {{baseUrl}}/ai/health
+
+###
+
+### 2. Process Receipt - Test with sample image
+POST {{baseUrl}}/ai/process-receipt
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "image": "/9j/4AAQSkZJRgABAQEAYABgAAD...(put your base64 image here)",
+  "carId": "{{carId}}"
+}
+
+###
+
+### Example with minimal test data
+POST {{baseUrl}}/ai/process-receipt
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "image": "test-base64-string",
+  "carId": "{{carId}}"
+}
+
+###

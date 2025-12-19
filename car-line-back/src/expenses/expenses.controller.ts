@@ -63,6 +63,26 @@ export class ExpensesController {
     return this.expensesService.getCategories();
   }
 
+  @Get('expenses')
+  async findAllForUser(
+    @CurrentUser('id') userId: string,
+    @Query() query: QueryExpenseDto & { carId?: string },
+  ) {
+    return this.expensesService.findAllForUser(userId, query);
+  }
+
+  @Get('expenses/stats')
+  async getStatsForUser(
+    @CurrentUser('id') userId: string,
+    @Query('from') from?: string,
+    @Query('to') to?: string,
+    @Query('carId') carId?: string,
+  ) {
+    const period =
+      from && to ? { from: new Date(from), to: new Date(to) } : undefined;
+    return this.expensesService.getExpenseStatsForUser(userId, period, carId);
+  }
+
   @Get('expenses/:id')
   async findOne(@Param('id') id: string, @CurrentUser('id') userId: string) {
     const expense = await this.expensesService.findOne(id);
@@ -86,25 +106,5 @@ export class ExpensesController {
     const expense = await this.expensesService.findOne(id);
     await this.carsService.verifyOwnership(expense.carId, userId);
     return this.expensesService.remove(id);
-  }
-
-  @Get('expenses')
-  async findAllForUser(
-    @CurrentUser('id') userId: string,
-    @Query() query: QueryExpenseDto & { carId?: string },
-  ) {
-    return this.expensesService.findAllForUser(userId, query);
-  }
-
-  @Get('expenses/stats')
-  async getStatsForUser(
-    @CurrentUser('id') userId: string,
-    @Query('from') from?: string,
-    @Query('to') to?: string,
-    @Query('carId') carId?: string,
-  ) {
-    const period =
-      from && to ? { from: new Date(from), to: new Date(to) } : undefined;
-    return this.expensesService.getExpenseStatsForUser(userId, period, carId);
   }
 }

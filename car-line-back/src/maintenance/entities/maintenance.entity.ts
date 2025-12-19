@@ -30,7 +30,15 @@ export class Maintenance {
   @Column({ type: 'date' })
   serviceDate: Date;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    transformer: {
+      to: (value: number) => value,
+      from: (value: string) => parseFloat(value),
+    },
+  })
   cost: number;
 
   @Column({ type: 'text', nullable: true })
@@ -42,5 +50,3 @@ export class Maintenance {
   @UpdateDateColumn()
   updatedAt: Date;
 }
-
-

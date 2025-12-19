@@ -34,12 +34,6 @@ export const AppRouter = () => {
         </ProtectedRoute>
       </Route>
 
-      <Route exact path="/cars/:id">
-        <ProtectedRoute>
-          <CarDetailsPage />
-        </ProtectedRoute>
-      </Route>
-
       <Route exact path="/cars/:id/mileage/add">
         <ProtectedRoute>
           <MileageAddPage />
@@ -52,15 +46,21 @@ export const AppRouter = () => {
         </ProtectedRoute>
       </Route>
 
-      <Route exact path="/expenses/all">
-        <ProtectedRoute>
-          <AllExpensesPage />
-        </ProtectedRoute>
-      </Route>
-
       <Route exact path="/cars/:id/maintenance/add">
         <ProtectedRoute>
           <MaintenanceAddPage />
+        </ProtectedRoute>
+      </Route>
+
+      <Route exact path="/cars/:id">
+        <ProtectedRoute>
+          <CarDetailsPage />
+        </ProtectedRoute>
+      </Route>
+
+      <Route exact path="/expenses/all">
+        <ProtectedRoute>
+          <AllExpensesPage />
         </ProtectedRoute>
       </Route>
 

@@ -29,7 +29,15 @@ export class Expense {
   @JoinColumn({ name: 'categoryId' })
   category: ExpenseCategory;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    transformer: {
+      to: (value: number) => value,
+      from: (value: string) => parseFloat(value),
+    },
+  })
   amount: number;
 
   @Column({ type: 'date' })
@@ -44,5 +52,3 @@ export class Expense {
   @UpdateDateColumn()
   updatedAt: Date;
 }
-
-
