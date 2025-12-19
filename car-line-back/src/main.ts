@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
+import { ExpensesService } from './expenses/expenses.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,7 +15,7 @@ async function bootstrap() {
   );
 
   // CORS налаштування
-  const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+  const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
   app.enableCors({
     origin: frontendUrl,
     credentials: true,
@@ -22,10 +23,15 @@ async function bootstrap() {
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
-  await app.listen(process.env.PORT ?? 3000);
-  console.log(
-    `🚀 Application is running on: http://localhost:${process.env.PORT ?? 3000}`,
-  );
+  // Seed expense categories
+  const expensesService = app.get(ExpensesService);
+  await expensesService.seedCategories();
+  console.log('✅ Expense categories seeded');
+
+  const port = process.env.PORT ?? 3001;
+  await app.listen(port);
+  console.log(`🚀 Application is running on: http://localhost:${port}`);
   console.log(`📡 CORS enabled for: ${frontendUrl}`);
 }
-bootstrap();
+
+void bootstrap();

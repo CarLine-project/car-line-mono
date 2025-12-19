@@ -2,10 +2,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
-import { IonButton, IonItem, IonLabel, IonInput, IonText } from "@ionic/react";
+import { IonText } from "@ionic/react";
 import { authApi } from "../api/auth.api";
 import { useAuthStore } from "../model/auth.store";
 import { useHistory } from "react-router-dom";
+import { Input, Button } from "../../../shared/ui";
 
 const registerSchema = z.object({
   email: z.string().email("Невірний формат email"),
@@ -32,7 +33,7 @@ export const RegisterForm: React.FC = () => {
     mutationFn: authApi.register,
     onSuccess: (data) => {
       setAuth(data);
-      history.push("/home");
+      history.push("/tabs/home");
     },
     onError: (error: any) => {
       console.error("Register error:", error);
@@ -45,61 +46,54 @@ export const RegisterForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <IonItem>
-        <IonLabel position="stacked">Email</IonLabel>
-        <IonInput
-          type="email"
-          {...register("email")}
-          placeholder="your@email.com"
-        />
-        {errors.email && (
-          <IonText color="danger" className="text-sm">
-            {errors.email.message}
-          </IonText>
-        )}
-      </IonItem>
+      <Input
+        label="Email"
+        type="email"
+        placeholder="your@email.com"
+        register={register("email")}
+        error={errors.email?.message}
+        required
+      />
 
-      <IonItem>
-        <IonLabel position="stacked">Пароль</IonLabel>
-        <IonInput
-          type="password"
-          {...register("password")}
-          placeholder="Мінімум 8 символів"
-        />
-        {errors.password && (
-          <IonText color="danger" className="text-sm">
-            {errors.password.message}
-          </IonText>
-        )}
-      </IonItem>
+      <Input
+        label="Пароль"
+        type="password"
+        placeholder="Мінімум 8 символів"
+        register={register("password")}
+        error={errors.password?.message}
+        required
+      />
 
-      <IonItem>
-        <IonLabel position="stacked">Ім'я (необов'язково)</IonLabel>
-        <IonInput type="text" {...register("name")} placeholder="Ваше ім'я" />
-      </IonItem>
+      <Input
+        label="Ім'я (необов'язково)"
+        type="text"
+        placeholder="Ваше ім'я"
+        register={register("name")}
+        error={errors.name?.message}
+      />
 
-      <IonItem>
-        <IonLabel position="stacked">Телефон (необов'язково)</IonLabel>
-        <IonInput
-          type="tel"
-          {...register("phone")}
-          placeholder="+380XXXXXXXXX"
-        />
-      </IonItem>
+      <Input
+        label="Телефон (необов'язково)"
+        type="tel"
+        placeholder="+380XXXXXXXXX"
+        register={register("phone")}
+        error={errors.phone?.message}
+      />
 
       {registerMutation.isError && (
         <IonText color="danger" className="text-sm">
           Помилка реєстрації. Спробуйте ще раз.
         </IonText>
       )}
-
-      <IonButton
-        type="submit"
-        expand="block"
-        disabled={registerMutation.isPending}
-      >
-        {registerMutation.isPending ? "Реєстрація..." : "Зареєструватися"}
-      </IonButton>
+      <div className="flex justify-center">
+        <Button
+          type="submit"
+          loading={registerMutation.isPending}
+          className="mt-6"
+        >
+          Зареєструватися
+        </Button>
+      </div>
     </form>
   );
 };

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CarLine - Class Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px 40px;
+        text-align: center;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 2.5em;
+        font-weight: 700;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .header p {
+        margin: 10px 0 0;
+        font-size: 1.1em;
+        opacity: 0.95;
+      }
+
+      .diagram-container {
+        padding: 40px;
+        background: #f8f9fa;
+        overflow-x: auto;
+      }
+
+      .mermaid {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .legend {
+        padding: 30px 40px;
+        background: white;
+      }
+
+      .legend h2 {
+        color: #667eea;
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 1.8em;
+      }
+
+      .legend h3 {
+        color: #764ba2;
+        margin-top: 25px;
+        margin-bottom: 15px;
+        font-size: 1.3em;
+      }
+
+      .legend ul {
+        line-height: 1.8;
+        color: #333;
+      }
+
+      .legend li {
+        margin-bottom: 8px;
+      }
+
+      .legend strong {
+        color: #667eea;
+      }
+
+      .legend code {
+        background: #f1f3f5;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: "Monaco", "Courier New", monospace;
+        color: #e83e8c;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        padding: 30px 40px;
+        background: #f8f9fa;
+        border-top: 2px solid #e9ecef;
+      }
+
+      .stat-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .stat-card .number {
+        font-size: 2.5em;
+        font-weight: 700;
+        color: #667eea;
+        margin: 0;
+      }
+
+      .stat-card .label {
+        color: #6c757d;
+        margin-top: 5px;
+        font-size: 0.9em;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .features {
+        padding: 30px 40px;
+        background: white;
+      }
+
+      .features h2 {
+        color: #667eea;
+        margin-top: 0;
+        margin-bottom: 25px;
+        font-size: 1.8em;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+      }
+
+      .feature-card {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 8px;
+        border-left: 4px solid #667eea;
+      }
+
+      .feature-card h3 {
+        margin-top: 0;
+        color: #764ba2;
+        font-size: 1.2em;
+        margin-bottom: 15px;
+      }
+
+      .feature-card ul {
+        margin: 0;
+        padding-left: 20px;
+        line-height: 1.8;
+        color: #495057;
+      }
+
+      .footer {
+        padding: 20px 40px;
+        text-align: center;
+        background: #f8f9fa;
+        color: #6c757d;
+        border-top: 2px solid #e9ecef;
+      }
+
+      @media print {
+        body {
+          background: white;
+        }
+        .container {
+          box-shadow: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🚗 CarLine Class Diagram</h1>
+        <p>Database Entities & Services Architecture</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="number">7</div>
+          <div class="label">Entities</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">6</div>
+          <div class="label">Services</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">48</div>
+          <div class="label">Methods</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">6</div>
+          <div class="label">Relationships</div>
+        </div>
+      </div>
+
+      <div class="diagram-container">
+        <pre class="mermaid">
+classDiagram
+    %% Entities
+    class User {
+        +UUID id
+        +String email
+        +String password
+        +String name
+        +String phone
+        +String avatar
+        +String role
+        +Date createdAt
+        +Date updatedAt
+    }
+
+    class RefreshToken {
+        +UUID id
+        +String token
+        +UUID userId
+        +Date expiresAt
+        +Date createdAt
+    }
+
+    class Car {
+        +UUID id
+        +UUID userId
+        +String make
+        +String model
+        +Integer year
+        +Integer initialMileage
+        +Boolean isActive
+        +Date createdAt
+        +Date updatedAt
+    }
+
+    class Mileage {
+        +UUID id
+        +UUID carId
+        +Integer value
+        +Date recordedAt
+        +String comment
+        +Date createdAt
+        +Date updatedAt
+    }
+
+    class Expense {
+        +UUID id
+        +UUID carId
+        +UUID categoryId
+        +Decimal amount
+        +Date expenseDate
+        +String description
+        +Date createdAt
+        +Date updatedAt
+    }
+
+    class ExpenseCategory {
+        +UUID id
+        +String name
+        +String icon
+        +Date createdAt
+        +Date updatedAt
+    }
+
+    class Maintenance {
+        +UUID id
+        +UUID carId
+        +String serviceType
+        +Integer mileageAtService
+        +Date serviceDate
+        +Decimal cost
+        +String description
+        +Date createdAt
+        +Date updatedAt
+    }
+
+    %% Services
+    class UsersService {
+        +findOne(id: string) User
+        +findByEmail(email: string) User
+        +create(userData: object) User
+        +update(id: string, updateData: Partial) User
+        +validatePassword(plain: string, hashed: string) boolean
+    }
+
+    class AuthService {
+        +register(registerDto: RegisterDto) AuthResponseDto
+        +login(loginDto: LoginDto) AuthResponseDto
+        +validateUser(email: string, password: string) User
+        +refresh(refreshToken: string, userId: string) AuthResponseDto
+        +logout(refreshToken: string) void
+        +generateTokensForUser(user: User) Tokens
+        +getUserById(id: string) User
+        +sanitizeUser(user: User) SanitizedUser
+        -generateTokens(user: User) Tokens
+        -cleanupExpiredTokens() void
+    }
+
+    class CarsService {
+        +create(userId: string, createCarDto: CreateCarDto) Car
+        +findAll(userId: string) Car[]
+        +findOne(id: string, userId: string) Car
+        +update(id: string, userId: string, updateCarDto: UpdateCarDto) Car
+        +remove(id: string, userId: string) void
+        +activate(id: string, userId: string) Car
+        +getActiveCar(userId: string) Car
+        +verifyOwnership(carId: string, userId: string) Car
+    }
+
+    class MileageService {
+        +create(carId: string, createMileageDto: CreateMileageDto) Mileage
+        +findAll(carId: string, query: QueryMileageDto) PaginatedResult
+        +findOne(id: string) Mileage
+        +update(id: string, updateMileageDto: UpdateMileageDto) Mileage
+        +remove(id: string) void
+        +getCurrentMileage(carId: string) Mileage
+        -getLastMileage(carId: string) Mileage
+    }
+
+    class ExpensesService {
+        +create(carId: string, createExpenseDto: CreateExpenseDto) Expense
+        +findAll(carId: string, query: QueryExpenseDto) PaginatedResult
+        +findOne(id: string) Expense
+        +update(id: string, updateExpenseDto: UpdateExpenseDto) Expense
+        +remove(id: string) void
+        +getCategories() ExpenseCategory[]
+        +getExpenseStats(carId: string, period: Period) ExpenseStats
+    }
+
+    class MaintenanceService {
+        +create(carId: string, createMaintenanceDto: CreateMaintenanceDto) Maintenance
+        +findAll(carId: string, query: QueryMaintenanceDto) PaginatedResult
+        +findOne(id: string) Maintenance
+        +update(id: string, updateMaintenanceDto: UpdateMaintenanceDto) Maintenance
+        +remove(id: string) void
+        +getNextMaintenanceRecommendation(carId: string) MaintenanceRecommendation
+        -getLastMaintenance(carId: string) Maintenance
+    }
+
+    %% Relationships between Entities
+    User "1" --o "0..*" RefreshToken : has
+    User "1" --o "0..*" Car : owns
+    Car "1" --o "0..*" Mileage : tracks
+    Car "1" --o "0..*" Expense : has
+    Car "1" --o "0..*" Maintenance : maintains
+    ExpenseCategory "1" --o "0..*" Expense : categorizes
+
+    %% Service Dependencies
+    AuthService ..> UsersService : uses
+    AuthService ..> RefreshToken : manages
+    AuthService ..> User : authenticates
+
+    UsersService ..> User : manages
+
+    CarsService ..> Car : manages
+    CarsService ..> User : validates
+
+    MileageService ..> Mileage : manages
+    MileageService ..> Car : validates
+
+    ExpensesService ..> Expense : manages
+    ExpensesService ..> ExpenseCategory : uses
+    ExpensesService ..> Car : validates
+
+    MaintenanceService ..> Maintenance : manages
+    MaintenanceService ..> MileageService : uses
+    MaintenanceService ..> Car : validates
+        </pre>
+      </div>
+
+      <div class="legend">
+        <h2>📋 UML Relationship Legend</h2>
+
+        <h3>Relationship Types:</h3>
+        <ul>
+          <li>
+            <code>--o</code> <strong>(Aggregation)</strong>: "has-a"
+            relationship where the child can exist independently
+          </li>
+          <li>
+            <code>..&gt;</code> <strong>(Dependency)</strong>: One class uses
+            another class temporarily
+          </li>
+        </ul>
+
+        <h3>Multiplicity:</h3>
+        <ul>
+          <li><code>1</code> : Exactly one</li>
+          <li><code>0..*</code> : Zero or more</li>
+          <li><code>1..*</code> : One or more</li>
+        </ul>
+
+        <h3>Examples:</h3>
+        <ul>
+          <li>
+            <strong>User --o Car</strong>: User has Cars (one-to-many
+            aggregation)
+          </li>
+          <li>
+            <strong>AuthService ..&gt; UsersService</strong>: AuthService
+            depends on UsersService methods
+          </li>
+        </ul>
+      </div>
+
+      <div class="features">
+        <h2>🎯 Key Features by Domain</h2>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>🔐 Authentication & Users</h3>
+            <ul>
+              <li>User CRUD operations</li>
+              <li>Password hashing & validation</li>
+              <li>JWT-based authentication</li>
+              <li>Refresh token management</li>
+              <li>Automatic token cleanup</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <h3>🚗 Car Management</h3>
+            <ul>
+              <li>Full vehicle lifecycle management</li>
+              <li>Active car system</li>
+              <li>Ownership verification</li>
+              <li>Multi-vehicle support</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <h3>📊 Mileage Tracking</h3>
+            <ul>
+              <li>Historical mileage records</li>
+              <li>Automatic validation</li>
+              <li>Current mileage queries</li>
+              <li>Time-based tracking</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <h3>💰 Expense Management</h3>
+            <ul>
+              <li>Categorized expense tracking</li>
+              <li>Date range filtering</li>
+              <li>Statistical analysis</li>
+              <li>Category-based reports</li>
+              <li>Monthly summaries</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <h3>🔧 Maintenance Management</h3>
+            <ul>
+              <li>Service record tracking</li>
+              <li>Cost monitoring</li>
+              <li>Smart recommendations</li>
+              <li>Mileage-based alerts</li>
+              <li>Time-based alerts</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <h3>🗄️ Database Design</h3>
+            <ul>
+              <li>UUID primary keys</li>
+              <li>Indexed foreign keys</li>
+              <li>Automatic timestamps</li>
+              <li>Cascade deletion</li>
+              <li>Nullable optional fields</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>
+          CarLine Application Architecture • Generated on
+          <?php echo date('Y-m-d'); ?>
+        </p>
+      </div>
+    </div>
+
+    <script>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: "default",
+        themeVariables: {
+          primaryColor: "#ffffff",
+          primaryTextColor: "#000000",
+          primaryBorderColor: "#000000",
+          lineColor: "#000000",
+          secondaryColor: "#f8f9fa",
+          tertiaryColor: "#fff",
+          textColor: "#000000",
+          mainBkg: "#ffffff",
+          secondBkg: "#f8f9fa",
+          border1: "#000000",
+          border2: "#000000",
+          arrowheadColor: "#000000",
+          fontFamily: '"Monaco", "Courier New", monospace',
+        },
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: "basis",
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,19 +1,21 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { User, AuthState, AuthResponse } from "./types";
+import type { User, AuthResponse } from "./types";
 
-interface AuthStore extends AuthState {
+interface AuthStore {
+  user: User | null;
+  accessToken: string | null;
+  refreshToken: string | null;
   setAuth: (authData: AuthResponse) => void;
   setTokens: (accessToken: string, refreshToken: string) => void;
   setUser: (user: User) => void;
   logout: () => void;
 }
 
-const initialState: AuthState = {
+const initialState = {
   user: null,
   accessToken: null,
   refreshToken: null,
-  isAuthenticated: false,
 };
 
 export const useAuthStore = create<AuthStore>()(
@@ -25,7 +27,6 @@ export const useAuthStore = create<AuthStore>()(
           user: authData.user,
           accessToken: authData.accessToken,
           refreshToken: authData.refreshToken,
-          isAuthenticated: true,
         }),
       setTokens: (accessToken: string, refreshToken: string) =>
         set({
@@ -46,3 +47,8 @@ export const useAuthStore = create<AuthStore>()(
     }
   )
 );
+
+// Селектор для isAuthenticated
+export const useIsAuthenticated = () => {
+  return useAuthStore((state) => !!state.accessToken);
+};

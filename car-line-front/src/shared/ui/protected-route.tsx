@@ -1,12 +1,12 @@
 import { Redirect } from "react-router-dom";
-import { useAuthStore } from "../../features/auth/model/auth.store";
+import { useIsAuthenticated } from "../../features/auth/model/auth.store";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isAuthenticated = useIsAuthenticated();
 
   if (!isAuthenticated) {
     return <Redirect to="/login" />;

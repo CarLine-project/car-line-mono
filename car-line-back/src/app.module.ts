@@ -6,6 +6,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { CarsModule } from './cars/cars.module';
+import { MileageModule } from './mileage/mileage.module';
+import { ExpensesModule } from './expenses/expenses.module';
+import { MaintenanceModule } from './maintenance/maintenance.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import typeormConfig from './config/typeorm.config';
 
@@ -27,6 +31,10 @@ import typeormConfig from './config/typeorm.config';
     }),
     UsersModule,
     AuthModule,
+    CarsModule,
+    MileageModule,
+    ExpensesModule,
+    MaintenanceModule,
   ],
   controllers: [AppController],
   providers: [

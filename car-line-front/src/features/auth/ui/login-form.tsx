@@ -2,10 +2,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
-import { IonButton, IonItem, IonLabel, IonInput, IonText } from "@ionic/react";
+import { IonText } from "@ionic/react";
 import { authApi } from "../api/auth.api";
 import { useAuthStore } from "../model/auth.store";
 import { useHistory } from "react-router-dom";
+import { Input, Button } from "../../../shared/ui";
 
 const loginSchema = z.object({
   email: z.string().email("Невірний формат email"),
@@ -30,7 +31,7 @@ export const LoginForm: React.FC = () => {
     mutationFn: authApi.login,
     onSuccess: (data) => {
       setAuth(data);
-      history.push("/home");
+      history.push("/tabs/home");
     },
     onError: (error: any) => {
       console.error("Login error:", error);
@@ -43,33 +44,23 @@ export const LoginForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <IonItem>
-        <IonLabel position="stacked">Email</IonLabel>
-        <IonInput
-          type="email"
-          {...register("email")}
-          placeholder="your@email.com"
-        />
-        {errors.email && (
-          <IonText color="danger" className="text-sm">
-            {errors.email.message}
-          </IonText>
-        )}
-      </IonItem>
+      <Input
+        label="Email"
+        type="email"
+        placeholder="your@email.com"
+        register={register("email")}
+        error={errors.email?.message}
+        required
+      />
 
-      <IonItem>
-        <IonLabel position="stacked">Пароль</IonLabel>
-        <IonInput
-          type="password"
-          {...register("password")}
-          placeholder="Введіть пароль"
-        />
-        {errors.password && (
-          <IonText color="danger" className="text-sm">
-            {errors.password.message}
-          </IonText>
-        )}
-      </IonItem>
+      <Input
+        label="Пароль"
+        type="password"
+        placeholder="Введіть пароль"
+        register={register("password")}
+        error={errors.password?.message}
+        required
+      />
 
       {loginMutation.isError && (
         <IonText color="danger" className="text-sm">
@@ -77,13 +68,9 @@ export const LoginForm: React.FC = () => {
         </IonText>
       )}
 
-      <IonButton
-        type="submit"
-        expand="block"
-        disabled={loginMutation.isPending}
-      >
-        {loginMutation.isPending ? "Вхід..." : "Увійти"}
-      </IonButton>
+      <Button type="submit" loading={loginMutation.isPending} className="mt-6">
+        Увійти
+      </Button>
     </form>
   );
 };

@@ -21,13 +21,15 @@
     "db:start": "./scripts/start-db.sh",
     "db:stop": "docker-compose -f docker-compose.yml down",
     "db:init": "./scripts/init-db.sh",
-    "db:reset": "docker-compose -f docker-compose.yml down -v && npm run db:start && npm run db:init"
+    "db:reset": "docker-compose -f docker-compose.yml down -v && npm run db:start && npm run db:init",
+    "db:seed": "ts-node -r tsconfig-paths/register src/database/seed.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
     "@nestjs/jwt": "^11.0.2",
+    "@nestjs/mapped-types": "^2.1.0",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/typeorm": "^11.0.0",

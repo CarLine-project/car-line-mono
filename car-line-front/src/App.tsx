@@ -29,7 +29,7 @@ import "@ionic/react/css/display.css";
 
 /* import '@ionic/react/css/palettes/dark.always.css'; */
 /* import '@ionic/react/css/palettes/dark.class.css'; */
-import "@ionic/react/css/palettes/dark.system.css";
+/* import "@ionic/react/css/palettes/dark.system.css"; */ /* Disabled for light theme */
 
 /* Theme variables */
 import "./theme/variables.css";
@@ -41,11 +41,11 @@ setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
-    <AppProviders>
-      <IonReactRouter>
+    <IonReactRouter>
+      <AppProviders>
         <AppRouter />
-      </IonReactRouter>
-    </AppProviders>
+      </AppProviders>
+    </IonReactRouter>
   </IonApp>
 );
 

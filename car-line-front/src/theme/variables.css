@@ -1,2 +1,160 @@
 /* For information on how to create your own theme, please refer to:
 http://ionicframework.com/docs/theming/ */
+
+/* Global body styles */
+body,
+ion-app {
+  background-color: #f5f7fa !important;
+}
+
+/* Color Palette - Light Theme */
+:root {
+  /* Primary Blue */
+  --ion-color-primary: #2196f3;
+  --ion-color-primary-rgb: 33, 150, 243;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #1e87db;
+  --ion-color-primary-tint: #42a5f5;
+
+  /* Medium Blue (Secondary) */
+  --ion-color-dark-blue: #1976d2;
+  --ion-color-dark-blue-rgb: 25, 118, 210;
+  --ion-color-dark-blue-contrast: #ffffff;
+  --ion-color-dark-blue-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-blue-shade: #1565c0;
+  --ion-color-dark-blue-tint: #1e88e5;
+
+  /* Light Blue */
+  --ion-color-light-blue: #90caf9;
+  --ion-color-light-blue-rgb: 144, 202, 249;
+  --ion-color-light-blue-contrast: #000000;
+  --ion-color-light-blue-contrast-rgb: 0, 0, 0;
+  --ion-color-light-blue-shade: #64b5f6;
+  --ion-color-light-blue-tint: #bbdefb;
+
+  /* Very Light Blue/Gray Background */
+  --ion-color-cream: #f5f7fa;
+  --ion-color-cream-rgb: 245, 247, 250;
+  --ion-color-cream-contrast: #37474f;
+  --ion-color-cream-contrast-rgb: 55, 71, 79;
+  --ion-color-cream-shade: #e8eaf0;
+  --ion-color-cream-tint: #ffffff;
+
+  /* Background - Light Theme */
+  --ion-background-color: #f5f7fa;
+  --ion-background-color-rgb: 245, 247, 250;
+
+  /* Text colors */
+  --ion-text-color: #37474f;
+  --ion-text-color-rgb: 55, 71, 79;
+
+  /* Card and Item backgrounds */
+  --ion-item-background: #ffffff;
+  --ion-card-background: #ffffff;
+
+  /* Toolbar background - Brand Color */
+  --ion-toolbar-background: #1976d2;
+  --ion-toolbar-border-color: #1565c0;
+  --ion-toolbar-color: #ffffff;
+
+  /* Tab bar - Brand Color */
+  --ion-tab-bar-background: #1976d2;
+  --ion-tab-bar-border-color: #1565c0;
+  --ion-tab-bar-color: #90caf9;
+  --ion-tab-bar-color-selected: #ffffff;
+
+  /* Content background */
+  --ion-content-background: #f5f7fa;
+}
+
+.ion-color-dark-blue {
+  --ion-color-base: var(--ion-color-dark-blue);
+  --ion-color-base-rgb: var(--ion-color-dark-blue-rgb);
+  --ion-color-contrast: var(--ion-color-dark-blue-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-dark-blue-contrast-rgb);
+  --ion-color-shade: var(--ion-color-dark-blue-shade);
+  --ion-color-tint: var(--ion-color-dark-blue-tint);
+}
+
+.ion-color-light-blue {
+  --ion-color-base: var(--ion-color-light-blue);
+  --ion-color-base-rgb: var(--ion-color-light-blue-rgb);
+  --ion-color-contrast: var(--ion-color-light-blue-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-light-blue-contrast-rgb);
+  --ion-color-shade: var(--ion-color-light-blue-shade);
+  --ion-color-tint: var(--ion-color-light-blue-tint);
+}
+
+.ion-color-cream {
+  --ion-color-base: var(--ion-color-cream);
+  --ion-color-base-rgb: var(--ion-color-cream-rgb);
+  --ion-color-contrast: var(--ion-color-cream-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-cream-contrast-rgb);
+  --ion-color-shade: var(--ion-color-cream-shade);
+  --ion-color-tint: var(--ion-color-cream-tint);
+}
+
+/* Tab Bar Styling */
+ion-tab-bar {
+  --background: var(--ion-tab-bar-background);
+  --color: var(--ion-tab-bar-color);
+  --color-selected: var(--ion-tab-bar-color-selected);
+  border-top: 1px solid var(--ion-tab-bar-border-color);
+}
+
+ion-tab-button {
+  --color: #90caf9;
+  --color-selected: #ffffff;
+}
+
+/* Override dark mode to keep light theme */
+@media (prefers-color-scheme: dark) {
+  body {
+    --ion-background-color: #f5f7fa;
+    --ion-background-color-rgb: 245, 247, 250;
+    --ion-text-color: #37474f;
+    --ion-text-color-rgb: 55, 71, 79;
+    --ion-item-background: #ffffff;
+    --ion-card-background: #ffffff;
+    --ion-toolbar-background: #1976d2;
+    --ion-tab-bar-background: #1976d2;
+    --ion-content-background: #f5f7fa;
+  }
+}
+
+/* Global text wrapping and overflow utilities */
+ion-label {
+  white-space: normal !important;
+}
+
+ion-label h2,
+ion-label h3,
+ion-label p {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+ion-card {
+  overflow: hidden;
+}
+
+ion-badge {
+  white-space: normal;
+  text-overflow: clip;
+  overflow: visible;
+}
+
+/* Ensure proper spacing in list items */
+ion-item ion-label {
+  margin: 12px 0;
+}
+
+ion-item ion-label h2 {
+  margin-bottom: 8px;
+}
+
+ion-item ion-label p {
+  margin-top: 4px;
+}
