@@ -10,6 +10,7 @@ import MileageAddPage from "../../pages/mileage/add";
 import ExpenseAddPage from "../../pages/expenses/add";
 import AllExpensesPage from "../../pages/expenses/all";
 import MaintenanceAddPage from "../../pages/maintenance/add";
+import ReceiptUploadDemo from "../../pages/demo/receipt-upload-demo";
 
 export const AppRouter = () => {
   return (
@@ -61,6 +62,12 @@ export const AppRouter = () => {
       <Route exact path="/expenses/all">
         <ProtectedRoute>
           <AllExpensesPage />
+        </ProtectedRoute>
+      </Route>
+
+      <Route exact path="/demo/receipt-upload">
+        <ProtectedRoute>
+          <ReceiptUploadDemo />
         </ProtectedRoute>
       </Route>
 
