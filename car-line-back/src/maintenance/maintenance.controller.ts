@@ -78,4 +78,12 @@ export class MaintenanceController {
     await this.carsService.verifyOwnership(maintenance.carId, userId);
     return this.maintenanceService.remove(id);
   }
+
+  @Get('maintenance')
+  async findAllForUser(
+    @CurrentUser('id') userId: string,
+    @Query() query: QueryMaintenanceDto & { carId?: string },
+  ) {
+    return this.maintenanceService.findAllForUser(userId, query);
+  }
 }

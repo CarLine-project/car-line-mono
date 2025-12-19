@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Between, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import { Maintenance } from './entities/maintenance.entity';
 import { CreateMaintenanceDto } from './dto/create-maintenance.dto';
 import { UpdateMaintenanceDto } from './dto/update-maintenance.dto';
@@ -35,11 +35,21 @@ export class MaintenanceService {
     page: number;
     limit: number;
   }> {
-    const { page = 1, limit = 20 } = query;
+    const { page = 1, limit = 20, from, to } = query;
     const skip = (page - 1) * limit;
 
+    const where: any = { carId };
+
+    if (from && to) {
+      where.serviceDate = Between(new Date(from), new Date(to));
+    } else if (from) {
+      where.serviceDate = MoreThanOrEqual(new Date(from));
+    } else if (to) {
+      where.serviceDate = LessThanOrEqual(new Date(to));
+    }
+
     const [data, total] = await this.maintenanceRepository.findAndCount({
-      where: { carId },
+      where,
       order: { serviceDate: 'DESC' },
       skip,
       take: limit,
@@ -85,9 +95,7 @@ export class MaintenanceService {
       return {
         recommended: true,
         reason: 'Немає записів про технічне обслуговування',
-        suggestedMileage: currentMileage
-          ? currentMileage.value + 10000
-          : null,
+        suggestedMileage: currentMileage ? currentMileage.value + 10000 : null,
         suggestedDate: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000), // 6 months
       };
     }
@@ -128,5 +136,51 @@ export class MaintenanceService {
       where: { carId },
       order: { serviceDate: 'DESC', createdAt: 'DESC' },
     });
+  }
+
+  async findAllForUser(
+    userId: string,
+    query: QueryMaintenanceDto & { carId?: string },
+  ): Promise<{
+    data: Maintenance[];
+    total: number;
+    page: number;
+    limit: number;
+  }> {
+    const { page = 1, limit = 20, from, to, carId } = query;
+    const skip = (page - 1) * limit;
+
+    const queryBuilder = this.maintenanceRepository
+      .createQueryBuilder('maintenance')
+      .leftJoin('maintenance.car', 'car')
+      .where('car.userId = :userId', { userId });
+
+    if (carId) {
+      queryBuilder.andWhere('maintenance.carId = :carId', { carId });
+    }
+
+    if (from && to) {
+      queryBuilder.andWhere('maintenance.serviceDate BETWEEN :from AND :to', {
+        from: new Date(from),
+        to: new Date(to),
+      });
+    } else if (from) {
+      queryBuilder.andWhere('maintenance.serviceDate >= :from', {
+        from: new Date(from),
+      });
+    } else if (to) {
+      queryBuilder.andWhere('maintenance.serviceDate <= :to', {
+        to: new Date(to),
+      });
+    }
+
+    queryBuilder
+      .orderBy('maintenance.serviceDate', 'DESC')
+      .skip(skip)
+      .take(limit);
+
+    const [data, total] = await queryBuilder.getManyAndCount();
+
+    return { data, total, page, limit };
   }
 }

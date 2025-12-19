@@ -58,7 +58,9 @@ export const useCreateExpense = () => {
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["expenses", variables.carId] });
+      queryClient.invalidateQueries({
+        queryKey: ["expenses", variables.carId],
+      });
     },
   });
 };
@@ -80,7 +82,9 @@ export const useUpdateExpense = () => {
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["expenses", variables.carId] });
+      queryClient.invalidateQueries({
+        queryKey: ["expenses", variables.carId],
+      });
     },
   });
 };
@@ -93,7 +97,40 @@ export const useDeleteExpense = () => {
       await expensesApi.deleteExpense(id);
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["expenses", variables.carId] });
+      queryClient.invalidateQueries({
+        queryKey: ["expenses", variables.carId],
+      });
+    },
+  });
+};
+
+export const useAllExpenses = (params?: {
+  page?: number;
+  limit?: number;
+  categoryId?: string;
+  from?: string;
+  to?: string;
+  carId?: string;
+}) => {
+  return useQuery({
+    queryKey: ["expenses", "all", params],
+    queryFn: async () => {
+      const response = await expensesApi.getAllExpenses(params);
+      return response.data;
+    },
+  });
+};
+
+export const useAllExpenseStats = (
+  from?: string,
+  to?: string,
+  carId?: string
+) => {
+  return useQuery({
+    queryKey: ["expenses", "all", "stats", from, to, carId],
+    queryFn: async () => {
+      const response = await expensesApi.getAllStats(from, to, carId);
+      return response.data;
     },
   });
 };

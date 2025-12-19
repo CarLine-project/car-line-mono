@@ -15,12 +15,15 @@ import {
   IonLabel,
 } from "@ionic/react";
 import { useState } from "react";
-import { useActiveCar } from "../../../features/cars/api/cars.queries";
-import { useExpenseStats } from "../../../features/expenses/api/expenses.queries";
+import { useCars } from "../../../features/cars/api/cars.queries";
+import { useAllExpenseStats } from "../../../features/expenses/api/expenses.queries";
+import { useExpenseCategories } from "../../../features/expenses/api/expenses.queries";
 
 const StatisticsPage = () => {
   const [period, setPeriod] = useState<string>("month");
-  const { data: activeCar, isLoading: carLoading } = useActiveCar();
+  const [selectedCarId, setSelectedCarId] = useState<string>("");
+  const { data: cars, isLoading: carsLoading } = useCars();
+  const { data: categories } = useExpenseCategories();
 
   const getDateRange = (period: string) => {
     const now = new Date();
@@ -56,13 +59,13 @@ const StatisticsPage = () => {
   };
 
   const { from, to } = getDateRange(period);
-  const { data: stats, isLoading: statsLoading } = useExpenseStats(
-    activeCar?.id || "",
+  const { data: stats, isLoading: statsLoading } = useAllExpenseStats(
     from,
-    to
+    to,
+    selectedCarId || undefined
   );
 
-  if (carLoading) {
+  if (carsLoading) {
     return (
       <IonPage>
         <IonHeader>
@@ -79,21 +82,6 @@ const StatisticsPage = () => {
     );
   }
 
-  if (!activeCar) {
-    return (
-      <IonPage>
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>Статистика</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent className="ion-padding">
-          <p>Спочатку оберіть активний автомобіль</p>
-        </IonContent>
-      </IonPage>
-    );
-  }
-
   return (
     <IonPage>
       <IonHeader>
@@ -104,10 +92,27 @@ const StatisticsPage = () => {
       <IonContent>
         <div className="ion-padding">
           <IonItem>
+            <IonLabel>Автомобіль</IonLabel>
+            <IonSelect
+              value={selectedCarId}
+              onIonChange={(e) => setSelectedCarId(e.detail.value)}
+              interface="popover"
+            >
+              <IonSelectOption value="">Всі автомобілі</IonSelectOption>
+              {cars?.map((car) => (
+                <IonSelectOption key={car.id} value={car.id}>
+                  {car.brand} {car.model}
+                </IonSelectOption>
+              ))}
+            </IonSelect>
+          </IonItem>
+
+          <IonItem>
             <IonLabel>Період</IonLabel>
             <IonSelect
               value={period}
               onIonChange={(e) => setPeriod(e.detail.value)}
+              interface="popover"
             >
               <IonSelectOption value="month">Останній місяць</IonSelectOption>
               <IonSelectOption value="3months">3 місяці</IonSelectOption>

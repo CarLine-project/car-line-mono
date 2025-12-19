@@ -17,9 +17,7 @@ export const maintenanceApi = {
     }),
 
   getNextRecommendation: (carId: string) =>
-    apiClient.get<MaintenanceRecommendation>(
-      `/cars/${carId}/maintenance/next`
-    ),
+    apiClient.get<MaintenanceRecommendation>(`/cars/${carId}/maintenance/next`),
 
   getMaintenance: (id: string) =>
     apiClient.get<Maintenance>(`/maintenance/${id}`),
@@ -28,4 +26,12 @@ export const maintenanceApi = {
     apiClient.patch<Maintenance>(`/maintenance/${id}`, data),
 
   deleteMaintenance: (id: string) => apiClient.delete(`/maintenance/${id}`),
+
+  getAllMaintenance: (params?: {
+    page?: number;
+    limit?: number;
+    from?: string;
+    to?: string;
+    carId?: string;
+  }) => apiClient.get<MaintenanceListResponse>(`/maintenance`, { params }),
 };

@@ -179,4 +179,123 @@ export class ExpensesService {
       byMonth,
     };
   }
+
+  async findAllForUser(
+    userId: string,
+    query: QueryExpenseDto & { carId?: string },
+  ): Promise<{ data: Expense[]; total: number; page: number; limit: number }> {
+    const { page = 1, limit = 20, categoryId, from, to, carId } = query;
+    const skip = (page - 1) * limit;
+
+    const queryBuilder = this.expenseRepository
+      .createQueryBuilder('expense')
+      .leftJoinAndSelect('expense.category', 'category')
+      .leftJoin('expense.car', 'car')
+      .where('car.userId = :userId', { userId });
+
+    if (carId) {
+      queryBuilder.andWhere('expense.carId = :carId', { carId });
+    }
+
+    if (categoryId) {
+      queryBuilder.andWhere('expense.categoryId = :categoryId', { categoryId });
+    }
+
+    if (from && to) {
+      queryBuilder.andWhere('expense.expenseDate BETWEEN :from AND :to', {
+        from: new Date(from),
+        to: new Date(to),
+      });
+    } else if (from) {
+      queryBuilder.andWhere('expense.expenseDate >= :from', {
+        from: new Date(from),
+      });
+    } else if (to) {
+      queryBuilder.andWhere('expense.expenseDate <= :to', {
+        to: new Date(to),
+      });
+    }
+
+    queryBuilder.orderBy('expense.expenseDate', 'DESC').skip(skip).take(limit);
+
+    const [data, total] = await queryBuilder.getManyAndCount();
+
+    return { data, total, page, limit };
+  }
+
+  async getExpenseStatsForUser(
+    userId: string,
+    period?: { from: Date; to: Date },
+    carId?: string,
+  ): Promise<{
+    totalAmount: number;
+    byCategory: Array<{
+      category: string;
+      amount: number;
+      percentage: number;
+    }>;
+    byMonth: Array<{ month: string; amount: number }>;
+  }> {
+    const queryBuilder = this.expenseRepository
+      .createQueryBuilder('expense')
+      .leftJoinAndSelect('expense.category', 'category')
+      .leftJoin('expense.car', 'car')
+      .where('car.userId = :userId', { userId });
+
+    if (carId) {
+      queryBuilder.andWhere('expense.carId = :carId', { carId });
+    }
+
+    if (period) {
+      queryBuilder.andWhere('expense.expenseDate BETWEEN :from AND :to', {
+        from: period.from,
+        to: period.to,
+      });
+    }
+
+    const expenses = await queryBuilder.getMany();
+
+    const totalAmount = expenses.reduce(
+      (sum, expense) => sum + Number(expense.amount),
+      0,
+    );
+
+    // Group by category
+    const categoryMap = new Map<string, number>();
+    expenses.forEach((expense) => {
+      const categoryName = expense.category.name;
+      const current = categoryMap.get(categoryName) || 0;
+      categoryMap.set(categoryName, current + Number(expense.amount));
+    });
+
+    const byCategory = Array.from(categoryMap.entries()).map(
+      ([category, amount]) => ({
+        category,
+        amount,
+        percentage: totalAmount > 0 ? (amount / totalAmount) * 100 : 0,
+      }),
+    );
+
+    // Group by month
+    const monthMap = new Map<string, number>();
+    expenses.forEach((expense) => {
+      const date = new Date(expense.expenseDate);
+      const month = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      const current = monthMap.get(month) || 0;
+      monthMap.set(month, current + Number(expense.amount));
+    });
+
+    const byMonth = Array.from(monthMap.entries())
+      .map(([month, amount]) => ({
+        month,
+        amount,
+      }))
+      .sort((a, b) => a.month.localeCompare(b.month));
+
+    return {
+      totalAmount,
+      byCategory,
+      byMonth,
+    };
+  }
 }

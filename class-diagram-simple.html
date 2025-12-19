@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CarLine - Class Diagram</title>
+    <title>CarLine - Simple Class Diagram</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
       body {
@@ -271,8 +271,8 @@
   <body>
     <div class="container">
       <div class="header">
-        <h1>🚗 CarLine Class Diagram</h1>
-        <p>Database Entities & Services Architecture</p>
+        <h1>🚗 CarLine Simplified Class Diagram</h1>
+        <p>System Architecture - Classes & Relationships</p>
       </div>
 
       <div class="stats">
@@ -285,12 +285,12 @@
           <div class="label">Services</div>
         </div>
         <div class="stat-card">
-          <div class="number">48</div>
-          <div class="label">Methods</div>
+          <div class="number">6</div>
+          <div class="label">Entity Relationships</div>
         </div>
         <div class="stat-card">
-          <div class="number">6</div>
-          <div class="label">Relationships</div>
+          <div class="number">9</div>
+          <div class="label">Service Dependencies</div>
         </div>
       </div>
 
@@ -313,141 +313,32 @@
           <pre class="mermaid" id="mermaid-diagram">
 classDiagram
     %% Entities
-    class User {
-        +UUID id
-        +String email
-        +String password
-        +String name
-        +String phone
-        +String avatar
-        +String role
-        +Date createdAt
-        +Date updatedAt
-    }
+    class User
 
-    class RefreshToken {
-        +UUID id
-        +String token
-        +UUID userId
-        +Date expiresAt
-        +Date createdAt
-    }
+    class RefreshToken
 
-    class Car {
-        +UUID id
-        +UUID userId
-        +String make
-        +String model
-        +Integer year
-        +Integer initialMileage
-        +Boolean isActive
-        +Date createdAt
-        +Date updatedAt
-    }
+    class Car
 
-    class Mileage {
-        +UUID id
-        +UUID carId
-        +Integer value
-        +Date recordedAt
-        +String comment
-        +Date createdAt
-        +Date updatedAt
-    }
+    class Mileage
 
-    class Expense {
-        +UUID id
-        +UUID carId
-        +UUID categoryId
-        +Decimal amount
-        +Date expenseDate
-        +String description
-        +Date createdAt
-        +Date updatedAt
-    }
+    class Expense
 
-    class ExpenseCategory {
-        +UUID id
-        +String name
-        +String icon
-        +Date createdAt
-        +Date updatedAt
-    }
+    class ExpenseCategory
 
-    class Maintenance {
-        +UUID id
-        +UUID carId
-        +String serviceType
-        +Integer mileageAtService
-        +Date serviceDate
-        +Decimal cost
-        +String description
-        +Date createdAt
-        +Date updatedAt
-    }
+    class Maintenance
 
     %% Services
-    class UsersService {
-        +findOne(id: string) User
-        +findByEmail(email: string) User
-        +create(userData: object) User
-        +update(id: string, updateData: Partial) User
-        +validatePassword(plain: string, hashed: string) boolean
-    }
+    class UsersService
 
-    class AuthService {
-        +register(registerDto: RegisterDto) AuthResponseDto
-        +login(loginDto: LoginDto) AuthResponseDto
-        +validateUser(email: string, password: string) User
-        +refresh(refreshToken: string, userId: string) AuthResponseDto
-        +logout(refreshToken: string) void
-        +generateTokensForUser(user: User) Tokens
-        +getUserById(id: string) User
-        +sanitizeUser(user: User) SanitizedUser
-        -generateTokens(user: User) Tokens
-        -cleanupExpiredTokens() void
-    }
+    class AuthService
 
-    class CarsService {
-        +create(userId: string, createCarDto: CreateCarDto) Car
-        +findAll(userId: string) Car[]
-        +findOne(id: string, userId: string) Car
-        +update(id: string, userId: string, updateCarDto: UpdateCarDto) Car
-        +remove(id: string, userId: string) void
-        +activate(id: string, userId: string) Car
-        +getActiveCar(userId: string) Car
-        +verifyOwnership(carId: string, userId: string) Car
-    }
+    class CarsService
 
-    class MileageService {
-        +create(carId: string, createMileageDto: CreateMileageDto) Mileage
-        +findAll(carId: string, query: QueryMileageDto) PaginatedResult
-        +findOne(id: string) Mileage
-        +update(id: string, updateMileageDto: UpdateMileageDto) Mileage
-        +remove(id: string) void
-        +getCurrentMileage(carId: string) Mileage
-        -getLastMileage(carId: string) Mileage
-    }
+    class MileageService
 
-    class ExpensesService {
-        +create(carId: string, createExpenseDto: CreateExpenseDto) Expense
-        +findAll(carId: string, query: QueryExpenseDto) PaginatedResult
-        +findOne(id: string) Expense
-        +update(id: string, updateExpenseDto: UpdateExpenseDto) Expense
-        +remove(id: string) void
-        +getCategories() ExpenseCategory[]
-        +getExpenseStats(carId: string, period: Period) ExpenseStats
-    }
+    class ExpensesService
 
-    class MaintenanceService {
-        +create(carId: string, createMaintenanceDto: CreateMaintenanceDto) Maintenance
-        +findAll(carId: string, query: QueryMaintenanceDto) PaginatedResult
-        +findOne(id: string) Maintenance
-        +update(id: string, updateMaintenanceDto: UpdateMaintenanceDto) Maintenance
-        +remove(id: string) void
-        +getNextMaintenanceRecommendation(carId: string) MaintenanceRecommendation
-        -getLastMaintenance(carId: string) Maintenance
-    }
+    class MaintenanceService
 
     %% Relationships between Entities
     User "1" --o "0..*" RefreshToken : has
@@ -518,70 +409,57 @@ classDiagram
       </div>
 
       <div class="features">
-        <h2>🎯 Key Features by Domain</h2>
+        <h2>🎯 System Components</h2>
 
         <div class="feature-grid">
           <div class="feature-card">
-            <h3>🔐 Authentication & Users</h3>
+            <h3>📦 Entities (7)</h3>
             <ul>
-              <li>User CRUD operations</li>
-              <li>Password hashing & validation</li>
-              <li>JWT-based authentication</li>
-              <li>Refresh token management</li>
-              <li>Automatic token cleanup</li>
+              <li>User</li>
+              <li>RefreshToken</li>
+              <li>Car</li>
+              <li>Mileage</li>
+              <li>Expense</li>
+              <li>ExpenseCategory</li>
+              <li>Maintenance</li>
             </ul>
           </div>
 
           <div class="feature-card">
-            <h3>🚗 Car Management</h3>
+            <h3>⚙️ Services (6)</h3>
             <ul>
-              <li>Full vehicle lifecycle management</li>
-              <li>Active car system</li>
-              <li>Ownership verification</li>
-              <li>Multi-vehicle support</li>
+              <li>AuthService</li>
+              <li>UsersService</li>
+              <li>CarsService</li>
+              <li>MileageService</li>
+              <li>ExpensesService</li>
+              <li>MaintenanceService</li>
             </ul>
           </div>
 
           <div class="feature-card">
-            <h3>📊 Mileage Tracking</h3>
+            <h3>🔗 Entity Relationships</h3>
             <ul>
-              <li>Historical mileage records</li>
-              <li>Automatic validation</li>
-              <li>Current mileage queries</li>
-              <li>Time-based tracking</li>
+              <li>User → RefreshToken (1 to many)</li>
+              <li>User → Car (1 to many)</li>
+              <li>Car → Mileage (1 to many)</li>
+              <li>Car → Expense (1 to many)</li>
+              <li>Car → Maintenance (1 to many)</li>
+              <li>ExpenseCategory → Expense (1 to many)</li>
             </ul>
           </div>
 
           <div class="feature-card">
-            <h3>💰 Expense Management</h3>
+            <h3>🔌 Service Dependencies</h3>
             <ul>
-              <li>Categorized expense tracking</li>
-              <li>Date range filtering</li>
-              <li>Statistical analysis</li>
-              <li>Category-based reports</li>
-              <li>Monthly summaries</li>
-            </ul>
-          </div>
-
-          <div class="feature-card">
-            <h3>🔧 Maintenance Management</h3>
-            <ul>
-              <li>Service record tracking</li>
-              <li>Cost monitoring</li>
-              <li>Smart recommendations</li>
-              <li>Mileage-based alerts</li>
-              <li>Time-based alerts</li>
-            </ul>
-          </div>
-
-          <div class="feature-card">
-            <h3>🗄️ Database Design</h3>
-            <ul>
-              <li>UUID primary keys</li>
-              <li>Indexed foreign keys</li>
-              <li>Automatic timestamps</li>
-              <li>Cascade deletion</li>
-              <li>Nullable optional fields</li>
+              <li>AuthService → UsersService</li>
+              <li>AuthService → RefreshToken</li>
+              <li>AuthService → User</li>
+              <li>UsersService → User</li>
+              <li>CarsService → Car, User</li>
+              <li>MileageService → Mileage, Car</li>
+              <li>ExpensesService → Expense, ExpenseCategory, Car</li>
+              <li>MaintenanceService → Maintenance, MileageService, Car</li>
             </ul>
           </div>
         </div>
@@ -589,8 +467,8 @@ classDiagram
 
       <div class="footer">
         <p>
-          CarLine Application Architecture • Generated on
-          <?php echo date('Y-m-d'); ?>
+          CarLine Simplified Architecture Diagram • Focus on Structure &
+          Relationships
         </p>
       </div>
     </div>

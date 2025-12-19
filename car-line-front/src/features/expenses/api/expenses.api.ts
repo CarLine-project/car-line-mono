@@ -37,4 +37,18 @@ export const expensesApi = {
     apiClient.get<ExpenseStats>(`/cars/${carId}/expenses/stats`, {
       params: { from, to },
     }),
+
+  getAllExpenses: (params?: {
+    page?: number;
+    limit?: number;
+    categoryId?: string;
+    from?: string;
+    to?: string;
+    carId?: string;
+  }) => apiClient.get<ExpenseListResponse>(`/expenses`, { params }),
+
+  getAllStats: (from?: string, to?: string, carId?: string) =>
+    apiClient.get<ExpenseStats>(`/expenses/stats`, {
+      params: { from, to, carId },
+    }),
 };

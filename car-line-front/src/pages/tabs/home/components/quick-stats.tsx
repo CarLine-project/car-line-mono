@@ -6,8 +6,10 @@ import {
   IonIcon,
   IonSpinner,
   IonBadge,
+  IonButton,
 } from "@ionic/react";
-import { speedometer, cash, build } from "ionicons/icons";
+import { speedometer, cash, build, list } from "ionicons/icons";
+import { useHistory } from "react-router-dom";
 import { useCurrentMileage } from "../../../../features/mileage/api/mileage.queries";
 import { useExpenseStats } from "../../../../features/expenses/api/expenses.queries";
 import { useMaintenanceRecommendation } from "../../../../features/maintenance/api/maintenance.queries";
@@ -17,6 +19,7 @@ interface QuickStatsProps {
 }
 
 export const QuickStats = ({ carId }: QuickStatsProps) => {
+  const history = useHistory();
   const { data: currentMileage, isLoading: mileageLoading } =
     useCurrentMileage(carId);
 
@@ -101,6 +104,18 @@ export const QuickStats = ({ carId }: QuickStatsProps) => {
           </IonCardContent>
         </IonCard>
       )}
+
+      <IonCard style={{ margin: "16px", overflow: "hidden" }}>
+        <IonCardContent>
+          <IonButton
+            expand="block"
+            onClick={() => history.push("/expenses/all")}
+          >
+            <IonIcon slot="start" icon={list} />
+            Переглянути всі витрати
+          </IonButton>
+        </IonCardContent>
+      </IonCard>
     </div>
   );
 };

@@ -88,3 +88,19 @@ export const useDeleteMaintenance = () => {
     },
   });
 };
+
+export const useAllMaintenance = (params?: {
+  page?: number;
+  limit?: number;
+  from?: string;
+  to?: string;
+  carId?: string;
+}) => {
+  return useQuery({
+    queryKey: ["maintenance", "all", params],
+    queryFn: async () => {
+      const response = await maintenanceApi.getAllMaintenance(params);
+      return response.data;
+    },
+  });
+};
