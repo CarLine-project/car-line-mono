@@ -11,7 +11,7 @@
           Oxygen, Ubuntu, Cantarell, sans-serif;
         margin: 0;
         padding: 20px;
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        background: #f5f5f5;
         min-height: 100vh;
       }
 
@@ -25,28 +25,27 @@
       }
 
       .header {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        background: #333;
         color: white;
-        padding: 30px 40px;
+        padding: 20px 40px;
         text-align: center;
+        border-bottom: 3px solid #000;
       }
 
       .header h1 {
         margin: 0;
-        font-size: 2.5em;
+        font-size: 2em;
         font-weight: 700;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       }
 
       .header p {
         margin: 10px 0 0;
-        font-size: 1.1em;
-        opacity: 0.95;
+        font-size: 1em;
       }
 
       .diagram-container {
-        padding: 40px;
-        background: #f8f9fa;
+        padding: 20px;
+        background: #fff;
         position: relative;
       }
 
@@ -83,26 +82,24 @@
 
       .zoom-btn {
         background: white;
-        border: 2px solid #f093fb;
-        color: #f093fb;
-        width: 45px;
-        height: 45px;
-        border-radius: 8px;
-        font-size: 20px;
+        border: 2px solid #333;
+        color: #333;
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+        font-size: 18px;
         font-weight: bold;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         transition: all 0.2s ease;
       }
 
       .zoom-btn:hover {
-        background: #f093fb;
+        background: #333;
         color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(240, 147, 251, 0.3);
       }
 
       .zoom-btn:active {
@@ -111,159 +108,27 @@
 
       .zoom-level {
         background: white;
-        border: 2px solid #f093fb;
-        color: #f093fb;
-        padding: 8px 12px;
-        border-radius: 8px;
-        font-size: 14px;
+        border: 2px solid #333;
+        color: #333;
+        padding: 6px 10px;
+        border-radius: 4px;
+        font-size: 12px;
         font-weight: 600;
         text-align: center;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         user-select: none;
       }
 
       .zoom-help {
-        position: absolute;
-        bottom: 50px;
-        right: 50px;
-        background: rgba(255, 255, 255, 0.95);
-        border: 2px solid #f093fb;
-        color: #f5576c;
-        padding: 12px 16px;
-        border-radius: 8px;
-        font-size: 13px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        z-index: 100;
-      }
-
-      .zoom-help strong {
-        color: #f093fb;
-      }
-
-      .description {
-        padding: 30px 40px;
-        background: white;
-      }
-
-      .description h2 {
-        color: #f093fb;
-        margin-top: 0;
-        margin-bottom: 20px;
-        font-size: 1.8em;
-      }
-
-      .description p {
-        line-height: 1.8;
-        color: #495057;
-        margin-bottom: 15px;
-      }
-
-      .description h3 {
-        color: #f5576c;
-        margin-top: 25px;
-        margin-bottom: 15px;
-        font-size: 1.3em;
-      }
-
-      .description ul {
-        line-height: 1.8;
-        color: #495057;
-      }
-
-      .description li {
-        margin-bottom: 8px;
-      }
-
-      .description strong {
-        color: #f093fb;
-      }
-
-      .scenarios {
-        padding: 30px 40px;
-        background: #f8f9fa;
-        border-top: 2px solid #e9ecef;
-      }
-
-      .scenarios h2 {
-        color: #f093fb;
-        margin-top: 0;
-        margin-bottom: 25px;
-        font-size: 1.8em;
-      }
-
-      .scenario-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-      }
-
-      .scenario-card {
-        background: white;
-        padding: 25px;
-        border-radius: 8px;
-        border-left: 4px solid #f093fb;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .scenario-card h3 {
-        margin-top: 0;
-        color: #f5576c;
-        font-size: 1.2em;
-        margin-bottom: 15px;
-      }
-
-      .scenario-card p {
-        margin: 0;
-        color: #6c757d;
-        line-height: 1.6;
-      }
-
-      .ai-features {
-        padding: 30px 40px;
-        background: white;
-        border-top: 2px solid #e9ecef;
-      }
-
-      .ai-features h2 {
-        color: #f093fb;
-        margin-top: 0;
-        margin-bottom: 25px;
-        font-size: 1.8em;
-      }
-
-      .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 25px;
-      }
-
-      .feature-card {
-        background: #f8f9fa;
-        padding: 25px;
-        border-radius: 8px;
-        border-left: 4px solid #f5576c;
-      }
-
-      .feature-card h3 {
-        margin-top: 0;
-        color: #f093fb;
-        font-size: 1.2em;
-        margin-bottom: 15px;
-      }
-
-      .feature-card ul {
-        margin: 0;
-        padding-left: 20px;
-        line-height: 1.8;
-        color: #495057;
+        display: none;
       }
 
       .footer {
-        padding: 20px 40px;
+        padding: 15px;
         text-align: center;
-        background: #f8f9fa;
-        color: #6c757d;
-        border-top: 2px solid #e9ecef;
+        background: #333;
+        color: #fff;
+        border-top: 3px solid #000;
       }
 
       @media print {
@@ -279,8 +144,8 @@
   <body>
     <div class="container">
       <div class="header">
-        <h1>🤖 CarLine AI Processing</h1>
-        <p>Smart Photo Recognition - Automated Data Entry</p>
+        <h1>CarLine AI Processing</h1>
+        <p>Receipt Recognition - Automated Expense Entry</p>
       </div>
 
       <div class="diagram-container">
@@ -294,348 +159,49 @@
           </button>
           <button class="zoom-btn" id="zoom-reset" title="Скинути">⟲</button>
         </div>
-        <div class="zoom-help">
-          <strong>💡 Підказка:</strong> Коліщатко миші для zoom, перетягуйте для
-          переміщення
-        </div>
         <div class="diagram-wrapper" id="diagram-wrapper">
           <pre class="mermaid" id="mermaid-diagram">
 sequenceDiagram
-    actor User as 👤 Користувач
-    participant Frontend as 📱 Frontend<br/>(React/Ionic)
-    participant Camera as 📷 Camera API
-    participant FileUpload as 📤 File Upload<br/>Component
-    participant Controller as 🎮 AIController
-    participant AIService as 🤖 AI Service
-    participant OCR as 👁️ OCR Engine<br/>(Tesseract/Cloud Vision)
-    participant GPT as 🧠 GPT-4 Vision<br/>API
-    participant Validator as ✅ Data Validator
-    participant ExpenseService as 💰 ExpensesService
-    participant MileageService as 📊 MileageService
-    participant DB as 💾 Database
+    actor User as Користувач
+    participant Frontend as Frontend
+    participant AIController as AIController
+    participant AIService as AIService
+    participant OCR as OCR Engine
+    participant GPT as GPT-4 Vision
+    participant ExpenseService as ExpensesService
+    participant DB as Database
     
-    %% Розпізнавання чека
-    Note over User,DB: Сценарій 1: Завантаження фото чека для автоматичного створення витрати
+    Note over User,DB: Розпізнавання чека
     
-    User->>Frontend: 1. Натискає "Додати витрату з фото"
-    Frontend->>Camera: 2. Відкрити камеру
-    Camera-->>User: 3. Показати інтерфейс камери
-    
-    User->>Camera: 4. Робить фото чека
-    Camera-->>Frontend: 5. Повертає зображення (base64/blob)
-    
-    Frontend->>Frontend: 6. Показує preview зображення
-    User->>Frontend: 7. Підтверджує завантаження
-    
-    Frontend->>Frontend: 8. Compress & optimize image
-    Note over Frontend: Стиснення для швидшої передачі
-    
-    Frontend->>Controller: 9. POST /ai/process-receipt<br/>{ image: base64, carId: uuid }
-    
-    Controller->>Controller: 10. Валідація формату<br/>(JPEG, PNG, max 10MB)
-    
-    Controller->>AIService: 11. processReceipt(image, carId)
+    User->>Frontend: Робить фото чека
+    Frontend->>Frontend: Оптимізація зображення
+    Frontend->>AIController: POST /ai/process-receipt
+    AIController->>AIService: processReceipt(image)
     
     par Паралельна обробка
-        AIService->>OCR: 12a. extractText(image)
-        Note over OCR: Розпізнавання тексту<br/>з чека
-        OCR->>OCR: Preprocessing:<br/>- Grayscale<br/>- Deskew<br/>- Noise reduction
-        OCR-->>AIService: 13a. Extracted text
-        
-        AIService->>GPT: 12b. analyzeReceiptImage(image)
-        Note over GPT: GPT-4 Vision аналізує<br/>структуру чека
-        GPT-->>AIService: 13b. Image analysis
+        AIService->>OCR: extractText(image)
+        OCR-->>AIService: Extracted text
+        AIService->>GPT: analyzeImage(image)
+        GPT-->>AIService: Structured data
     end
     
-    AIService->>AIService: 14. Combine OCR + GPT results
+    AIService->>AIService: Combine results
+    AIService-->>AIController: JSON data with confidence
+    AIController-->>Frontend: 200 OK
+    Frontend-->>User: Показує дані для підтвердження
     
-    AIService->>GPT: 15. POST /completions<br/>Prompt: "Extract structured data"
-    Note over GPT: Structured prompt:<br/>{ amount, date, merchant,<br/>category, items[] }
-    
-    GPT-->>AIService: 16. JSON response:<br/>{ amount: 1250.50,<br/>date: "2024-12-19",<br/>merchant: "WOG",<br/>category: "fuel",<br/>confidence: 0.95 }
-    
-    AIService->>Validator: 17. validateExtractedData(data)
-    
-    alt Низька впевненість (confidence < 0.8)
-        Validator-->>AIService: ⚠️ Low confidence
-        AIService-->>Controller: 18. Return with warning
-        Controller-->>Frontend: 19. 200 OK<br/>{ data: {...}, needsReview: true }
-        Frontend-->>User: ⚠️ "Перевірте дані"<br/>Показує форму з заповненими даними
-        User->>Frontend: 20. Коригує та підтверджує
-    else Висока впевненість (confidence >= 0.8)
-        Validator-->>AIService: ✅ Data validated
-        AIService-->>Controller: Data confirmed
-        Controller-->>Frontend: 21. 200 OK<br/>{ data: {...}, needsReview: false }
-        Frontend-->>User: ✨ "Дані розпізнано успішно!"<br/>Показує preview
-    end
-    
-    User->>Frontend: 22. Натискає "Зберегти"
-    Frontend->>Controller: 23. POST /expenses/:carId<br/>{ amount, date, category, ... }
-    Controller->>ExpenseService: 24. create(carId, expenseDto)
-    ExpenseService->>DB: 25. INSERT expense
-    DB-->>ExpenseService: 26. Created expense
-    ExpenseService-->>Controller: 27. Expense entity
-    Controller-->>Frontend: 28. 201 Created
-    Frontend-->>User: ✅ "Витрату створено!"
-    
-    %% Розпізнавання одометра
-    Note over User,DB: Сценарій 2: Фото одометра для автоматичного запису пробігу
-    
-    User->>Frontend: 29. "Додати пробіг з фото"
-    Frontend->>Camera: 30. Відкрити камеру
-    User->>Camera: 31. Робить фото одометра
-    Camera-->>Frontend: 32. Зображення одометра
-    
-    Frontend->>Controller: 33. POST /ai/process-odometer<br/>{ image: base64, carId: uuid }
-    Controller->>AIService: 34. processOdometer(image, carId)
-    
-    AIService->>OCR: 35. extractNumbers(image)
-    Note over OCR: Спеціалізоване розпізнавання<br/>цифр одометра
-    OCR->>OCR: Apply filters:<br/>- Edge detection<br/>- Digit segmentation<br/>- Contrast enhancement
-    OCR-->>AIService: 36. Detected digits: "125847"
-    
-    AIService->>GPT: 37. verifyOdometerReading(image, "125847")
-    Note over GPT: GPT перевіряє правильність<br/>розпізнавання
-    GPT-->>AIService: 38. { value: 125847,<br/>unit: "km",<br/>confidence: 0.98 }
-    
-    AIService->>MileageService: 39. validateMileage(carId, 125847)
-    Note over MileageService: Перевірка логічності:<br/>не менше попереднього
-    
-    alt Пробіг менший за попередній
-        MileageService-->>AIService: ❌ Invalid: less than previous
-        AIService-->>Controller: Error
-        Controller-->>Frontend: 40. 400 Bad Request<br/>"Пробіг менший за попередній"
-        Frontend-->>User: ❌ "Помилка: перевірте фото"<br/>Можливість ручного введення
-    else Пробіг коректний
-        MileageService-->>AIService: ✅ Valid mileage
-        AIService-->>Controller: 41. { mileage: 125847,<br/>confidence: 0.98 }
-        Controller-->>Frontend: 42. 200 OK
-        Frontend-->>User: ✨ "Пробіг розпізнано: 125,847 км"<br/>Кнопка "Зберегти"
-        
-        User->>Frontend: 43. Підтверджує
-        Frontend->>Controller: 44. POST /mileage/:carId
-        Controller->>MileageService: 45. create(carId, { value: 125847 })
-        MileageService->>DB: 46. INSERT mileage
-        DB-->>MileageService: 47. Created
-        MileageService-->>Controller: 48. Mileage entity
-        Controller-->>Frontend: 49. 201 Created
-        Frontend-->>User: ✅ "Пробіг збережено!"
-    end
-    
-    %% Обробка помилок
-    Note over User,DB: Сценарій 3: Обробка некоректного зображення
-    
-    User->>Frontend: 50. Завантажує розмите фото
-    Frontend->>Controller: 51. POST /ai/process-receipt
-    Controller->>AIService: 52. processReceipt(blurryImage)
-    AIService->>OCR: 53. extractText(blurryImage)
-    OCR-->>AIService: 54. Low quality result<br/>confidence: 0.3
-    
-    AIService->>AIService: 55. Detect poor quality
-    AIService-->>Controller: 56. { error: "poor_quality",<br/>suggestion: "Зробіть чіткіше фото" }
-    Controller-->>Frontend: 57. 422 Unprocessable Entity
-    Frontend-->>User: 📸 "Фото низької якості"<br/>"Спробуйте ще раз з кращим<br/>освітленням та фокусом"
-    
-    User->>Frontend: 58. Робить нове фото
-    Note over User,Frontend: Повторює процес з кращим фото
+    User->>Frontend: Підтверджує
+    Frontend->>ExpenseService: create(expenseDto)
+    ExpenseService->>DB: INSERT expense
+    DB-->>ExpenseService: Created
+    ExpenseService-->>Frontend: 201 Created
+    Frontend-->>User: Витрату створено
           </pre>
         </div>
       </div>
 
-      <div class="description">
-        <h2>📝 Опис AI обробки</h2>
-        <p>
-          Ця діаграма показує інтеграцію штучного інтелекту в процес додавання
-          даних. Замість ручного введення, користувач робить фото, а система
-          автоматично розпізнає та витягує потрібну інформацію.
-        </p>
-
-        <h3>Ключові технології:</h3>
-        <ul>
-          <li>
-            <strong>OCR (Optical Character Recognition)</strong> - розпізнавання
-            тексту з зображень (Tesseract, Google Cloud Vision API)
-          </li>
-          <li>
-            <strong>GPT-4 Vision API</strong> - глибокий аналіз зображень та
-            контексту
-          </li>
-          <li>
-            <strong>Computer Vision</strong> - попередня обробка зображень для
-            покращення якості розпізнавання
-          </li>
-          <li>
-            <strong>Natural Language Processing</strong> - структуризація
-            витягнутих даних
-          </li>
-        </ul>
-
-        <h3>Типи зображень для обробки:</h3>
-        <ul>
-          <li>
-            <strong>Чеки та рахунки</strong> - автоматичне створення витрат
-            (сума, дата, категорія, опис)
-          </li>
-          <li><strong>Одометр</strong> - запис пробігу без ручного введення</li>
-          <li>
-            <strong>Інвойси обслуговування</strong> - додавання записів
-            технічного обслуговування
-          </li>
-          <li>
-            <strong>Паливні чеки</strong> - трекінг заправок з визначенням
-            об'єму та ціни
-          </li>
-        </ul>
-
-        <h3>Переваги AI підходу:</h3>
-        <ul>
-          <li>⚡ <strong>Швидкість</strong> - економія часу користувача</li>
-          <li>
-            ✅ <strong>Точність</strong> - зменшення помилок ручного введення
-          </li>
-          <li>
-            🎯 <strong>Зручність</strong> - просто зробити фото замість
-            заповнення форми
-          </li>
-          <li>
-            📊 <strong>Автоматична категоризація</strong> - AI визначає тип
-            витрати
-          </li>
-          <li>
-            🔍 <strong>Валідація</strong> - перевірка коректності розпізнаних
-            даних
-          </li>
-        </ul>
-      </div>
-
-      <div class="scenarios">
-        <h2>🎯 Сценарії використання AI</h2>
-
-        <div class="scenario-grid">
-          <div class="scenario-card">
-            <h3>📄 Розпізнавання чека</h3>
-            <p>
-              Система витягує суму, дату, найменування продавця, та автоматично
-              визначає категорію витрати (паливо, мийка, запчастини, ремонт).
-              Confidence score показує надійність розпізнавання.
-            </p>
-          </div>
-
-          <div class="scenario-card">
-            <h3>🚗 Пробіг з одометра</h3>
-            <p>
-              OCR спеціально налаштований на розпізнавання цифр одометра.
-              Система валідує, що новий пробіг більший за попередній та
-              знаходиться в розумних межах (не занадто великий приріст).
-            </p>
-          </div>
-
-          <div class="scenario-card">
-            <h3>🔧 Інвойси СТО</h3>
-            <p>
-              Розпізнавання рахунків з автосервісу: вартість робіт, дата
-              обслуговування, тип робіт (заміна масла, гальма, шини).
-              Автоматичне заповнення форми обслуговування.
-            </p>
-          </div>
-
-          <div class="scenario-card">
-            <h3>⛽ Паливні картки</h3>
-            <p>
-              Витягування даних з чеків АЗС: об'єм палива, ціна за літр,
-              загальна сума, тип палива (бензин/дизель). Розрахунок середньої
-              витрати палива.
-            </p>
-          </div>
-
-          <div class="scenario-card">
-            <h3>✅ Контроль якості</h3>
-            <p>
-              AI оцінює confidence score кожного розпізнаного поля. При низькій
-              впевненості користувач отримує попередження та може скоригувати
-              дані перед збереженням.
-            </p>
-          </div>
-
-          <div class="scenario-card">
-            <h3>🔄 Офлайн режим</h3>
-            <p>
-              Можливість зберегти фото локально та обробити пізніше при появі
-              інтернету. Локальне OCR для базового розпізнавання без
-              підключення.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="ai-features">
-        <h2>🤖 AI Можливості системи</h2>
-
-        <div class="feature-grid">
-          <div class="feature-card">
-            <h3>🧠 Машинне навчання</h3>
-            <ul>
-              <li>Навчання на історичних даних користувача</li>
-              <li>Покращення точності з часом</li>
-              <li>Персоналізована категоризація</li>
-              <li>Розпізнавання улюблених локацій/СТО</li>
-            </ul>
-          </div>
-
-          <div class="feature-card">
-            <h3>👁️ Computer Vision</h3>
-            <ul>
-              <li>Автоматична корекція перспективи</li>
-              <li>Підвищення контрасту та чіткості</li>
-              <li>Видалення шуму з зображення</li>
-              <li>Визначення меж документа</li>
-            </ul>
-          </div>
-
-          <div class="feature-card">
-            <h3>📊 Інтелектуальна валідація</h3>
-            <ul>
-              <li>Перевірка логічності дати та суми</li>
-              <li>Порівняння з історичними даними</li>
-              <li>Виявлення аномалій та дублікатів</li>
-              <li>Підказки при виявленні помилок</li>
-            </ul>
-          </div>
-
-          <div class="feature-card">
-            <h3>🌍 Багатомовність</h3>
-            <ul>
-              <li>Розпізнавання українською, англійською</li>
-              <li>Підтримка різних форматів дат</li>
-              <li>Конвертація валют автоматично</li>
-              <li>Міжнародні чеки та документи</li>
-            </ul>
-          </div>
-
-          <div class="feature-card">
-            <h3>⚡ Оптимізація продуктивності</h3>
-            <ul>
-              <li>Стиснення зображень перед відправкою</li>
-              <li>Кешування результатів OCR</li>
-              <li>Паралельна обробка OCR + GPT</li>
-              <li>Пріоритетна черга обробки</li>
-            </ul>
-          </div>
-
-          <div class="feature-card">
-            <h3>🔒 Безпека та конфіденційність</h3>
-            <ul>
-              <li>Шифрування зображень при передачі</li>
-              <li>Автоматичне видалення фото після обробки</li>
-              <li>Збереження лише витягнутих даних</li>
-              <li>GDPR-сумісна обробка даних</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
       <div class="footer">
-        <p>CarLine AI-Powered Data Entry • Smart Photo Recognition System</p>
+        <p>CarLine AI Processing</p>
       </div>
     </div>
 
@@ -646,27 +212,27 @@ sequenceDiagram
         themeVariables: {
           primaryColor: "#fff",
           primaryTextColor: "#000",
-          primaryBorderColor: "#f093fb",
-          lineColor: "#f5576c",
-          secondaryColor: "#f8f9fa",
-          tertiaryColor: "#e9ecef",
-          actorBkg: "#f093fb",
-          actorBorder: "#f5576c",
-          actorTextColor: "#fff",
-          actorLineColor: "#f5576c",
-          signalColor: "#333",
+          primaryBorderColor: "#333",
+          lineColor: "#000",
+          secondaryColor: "#f5f5f5",
+          tertiaryColor: "#e0e0e0",
+          actorBkg: "#fff",
+          actorBorder: "#000",
+          actorTextColor: "#000",
+          actorLineColor: "#000",
+          signalColor: "#000",
           signalTextColor: "#000",
-          labelBoxBkgColor: "#f093fb",
-          labelBoxBorderColor: "#f5576c",
-          labelTextColor: "#fff",
+          labelBoxBkgColor: "#e0e0e0",
+          labelBoxBorderColor: "#000",
+          labelTextColor: "#000",
           loopTextColor: "#000",
-          noteBorderColor: "#f5576c",
-          noteBkgColor: "#fff5f7",
+          noteBorderColor: "#000",
+          noteBkgColor: "#f5f5f5",
           noteTextColor: "#000",
-          activationBorderColor: "#f5576c",
-          activationBkgColor: "#fff5f7",
-          sequenceNumberColor: "#fff",
-          fontFamily: '"Monaco", "Courier New", monospace',
+          activationBorderColor: "#000",
+          activationBkgColor: "#e0e0e0",
+          sequenceNumberColor: "#000",
+          fontFamily: '"Arial", sans-serif',
         },
         sequence: {
           useMaxWidth: true,

@@ -11,7 +11,7 @@
           Oxygen, Ubuntu, Cantarell, sans-serif;
         margin: 0;
         padding: 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #f5f5f5;
         min-height: 100vh;
       }
 
@@ -25,28 +25,27 @@
       }
 
       .header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #333;
         color: white;
-        padding: 30px 40px;
+        padding: 20px 40px;
         text-align: center;
+        border-bottom: 3px solid #000;
       }
 
       .header h1 {
         margin: 0;
-        font-size: 2.5em;
+        font-size: 2em;
         font-weight: 700;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       }
 
       .header p {
         margin: 10px 0 0;
-        font-size: 1.1em;
-        opacity: 0.95;
+        font-size: 1em;
       }
 
       .diagram-container {
-        padding: 40px;
-        background: #f8f9fa;
+        padding: 20px;
+        background: #fff;
         position: relative;
       }
 
@@ -82,26 +81,24 @@
 
       .zoom-btn {
         background: white;
-        border: 2px solid #667eea;
-        color: #667eea;
-        width: 45px;
-        height: 45px;
-        border-radius: 8px;
-        font-size: 20px;
+        border: 2px solid #333;
+        color: #333;
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+        font-size: 18px;
         font-weight: bold;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         transition: all 0.2s ease;
       }
 
       .zoom-btn:hover {
-        background: #667eea;
+        background: #333;
         color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
       }
 
       .zoom-btn:active {
@@ -110,152 +107,39 @@
 
       .zoom-level {
         background: white;
-        border: 2px solid #667eea;
-        color: #667eea;
-        padding: 8px 12px;
-        border-radius: 8px;
-        font-size: 14px;
+        border: 2px solid #333;
+        color: #333;
+        padding: 6px 10px;
+        border-radius: 4px;
+        font-size: 12px;
         font-weight: 600;
         text-align: center;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         user-select: none;
       }
 
       .zoom-help {
-        position: absolute;
-        bottom: 50px;
-        right: 50px;
-        background: rgba(255, 255, 255, 0.95);
-        border: 2px solid #667eea;
-        color: #764ba2;
-        padding: 12px 16px;
-        border-radius: 8px;
-        font-size: 13px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        z-index: 100;
-      }
-
-      .zoom-help strong {
-        color: #667eea;
+        display: none;
       }
 
       .legend {
-        padding: 30px 40px;
-        background: white;
-      }
-
-      .legend h2 {
-        color: #667eea;
-        margin-top: 0;
-        margin-bottom: 20px;
-        font-size: 1.8em;
-      }
-
-      .legend h3 {
-        color: #764ba2;
-        margin-top: 25px;
-        margin-bottom: 15px;
-        font-size: 1.3em;
-      }
-
-      .legend ul {
-        line-height: 1.8;
-        color: #333;
-      }
-
-      .legend li {
-        margin-bottom: 8px;
-      }
-
-      .legend strong {
-        color: #667eea;
-      }
-
-      .legend code {
-        background: #f1f3f5;
-        padding: 2px 6px;
-        border-radius: 3px;
-        font-family: "Monaco", "Courier New", monospace;
-        color: #e83e8c;
+        display: none;
       }
 
       .stats {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-        padding: 30px 40px;
-        background: #f8f9fa;
-        border-top: 2px solid #e9ecef;
-      }
-
-      .stat-card {
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        text-align: center;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .stat-card .number {
-        font-size: 2.5em;
-        font-weight: 700;
-        color: #667eea;
-        margin: 0;
-      }
-
-      .stat-card .label {
-        color: #6c757d;
-        margin-top: 5px;
-        font-size: 0.9em;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        display: none;
       }
 
       .features {
-        padding: 30px 40px;
-        background: white;
-      }
-
-      .features h2 {
-        color: #667eea;
-        margin-top: 0;
-        margin-bottom: 25px;
-        font-size: 1.8em;
-      }
-
-      .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 25px;
-      }
-
-      .feature-card {
-        background: #f8f9fa;
-        padding: 25px;
-        border-radius: 8px;
-        border-left: 4px solid #667eea;
-      }
-
-      .feature-card h3 {
-        margin-top: 0;
-        color: #764ba2;
-        font-size: 1.2em;
-        margin-bottom: 15px;
-      }
-
-      .feature-card ul {
-        margin: 0;
-        padding-left: 20px;
-        line-height: 1.8;
-        color: #495057;
+        display: none;
       }
 
       .footer {
-        padding: 20px 40px;
+        padding: 15px;
         text-align: center;
-        background: #f8f9fa;
-        color: #6c757d;
-        border-top: 2px solid #e9ecef;
+        background: #333;
+        color: #fff;
+        border-top: 3px solid #000;
       }
 
       @media print {
@@ -271,7 +155,7 @@
   <body>
     <div class="container">
       <div class="header">
-        <h1>🚗 CarLine Simplified Class Diagram</h1>
+        <h1>CarLine Simplified Class Diagram</h1>
         <p>System Architecture - Classes & Relationships</p>
       </div>
 
@@ -304,10 +188,6 @@
             −
           </button>
           <button class="zoom-btn" id="zoom-reset" title="Скинути">⟲</button>
-        </div>
-        <div class="zoom-help">
-          <strong>💡 Підказка:</strong> Коліщатко миші для zoom, перетягуйте для
-          переміщення
         </div>
         <div class="diagram-wrapper" id="diagram-wrapper">
           <pre class="mermaid" id="mermaid-diagram">
@@ -373,103 +253,8 @@ classDiagram
         </div>
       </div>
 
-      <div class="legend">
-        <h2>📋 UML Relationship Legend</h2>
-
-        <h3>Relationship Types:</h3>
-        <ul>
-          <li>
-            <code>--o</code> <strong>(Aggregation)</strong>: "has-a"
-            relationship where the child can exist independently
-          </li>
-          <li>
-            <code>..&gt;</code> <strong>(Dependency)</strong>: One class uses
-            another class temporarily
-          </li>
-        </ul>
-
-        <h3>Multiplicity:</h3>
-        <ul>
-          <li><code>1</code> : Exactly one</li>
-          <li><code>0..*</code> : Zero or more</li>
-          <li><code>1..*</code> : One or more</li>
-        </ul>
-
-        <h3>Examples:</h3>
-        <ul>
-          <li>
-            <strong>User --o Car</strong>: User has Cars (one-to-many
-            aggregation)
-          </li>
-          <li>
-            <strong>AuthService ..&gt; UsersService</strong>: AuthService
-            depends on UsersService methods
-          </li>
-        </ul>
-      </div>
-
-      <div class="features">
-        <h2>🎯 System Components</h2>
-
-        <div class="feature-grid">
-          <div class="feature-card">
-            <h3>📦 Entities (7)</h3>
-            <ul>
-              <li>User</li>
-              <li>RefreshToken</li>
-              <li>Car</li>
-              <li>Mileage</li>
-              <li>Expense</li>
-              <li>ExpenseCategory</li>
-              <li>Maintenance</li>
-            </ul>
-          </div>
-
-          <div class="feature-card">
-            <h3>⚙️ Services (6)</h3>
-            <ul>
-              <li>AuthService</li>
-              <li>UsersService</li>
-              <li>CarsService</li>
-              <li>MileageService</li>
-              <li>ExpensesService</li>
-              <li>MaintenanceService</li>
-            </ul>
-          </div>
-
-          <div class="feature-card">
-            <h3>🔗 Entity Relationships</h3>
-            <ul>
-              <li>User → RefreshToken (1 to many)</li>
-              <li>User → Car (1 to many)</li>
-              <li>Car → Mileage (1 to many)</li>
-              <li>Car → Expense (1 to many)</li>
-              <li>Car → Maintenance (1 to many)</li>
-              <li>ExpenseCategory → Expense (1 to many)</li>
-            </ul>
-          </div>
-
-          <div class="feature-card">
-            <h3>🔌 Service Dependencies</h3>
-            <ul>
-              <li>AuthService → UsersService</li>
-              <li>AuthService → RefreshToken</li>
-              <li>AuthService → User</li>
-              <li>UsersService → User</li>
-              <li>CarsService → Car, User</li>
-              <li>MileageService → Mileage, Car</li>
-              <li>ExpensesService → Expense, ExpenseCategory, Car</li>
-              <li>MaintenanceService → Maintenance, MileageService, Car</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
       <div class="footer">
-        <p>
-          CarLine Simplified Architecture Diagram • Focus on Structure &
-          Relationships
-        </p>
+        <p>CarLine Simplified Class Diagram</p>
       </div>
     </div>
 
@@ -482,15 +267,15 @@ classDiagram
           primaryTextColor: "#000000",
           primaryBorderColor: "#000000",
           lineColor: "#000000",
-          secondaryColor: "#f8f9fa",
-          tertiaryColor: "#fff",
+          secondaryColor: "#f5f5f5",
+          tertiaryColor: "#e0e0e0",
           textColor: "#000000",
           mainBkg: "#ffffff",
-          secondBkg: "#f8f9fa",
+          secondBkg: "#f5f5f5",
           border1: "#000000",
           border2: "#000000",
           arrowheadColor: "#000000",
-          fontFamily: '"Monaco", "Courier New", monospace',
+          fontFamily: '"Arial", sans-serif',
         },
         flowchart: {
           useMaxWidth: true,
