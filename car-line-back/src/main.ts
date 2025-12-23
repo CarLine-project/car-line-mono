@@ -14,7 +14,6 @@ async function bootstrap() {
     }),
   );
 
-  // CORS налаштування
   const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
   app.enableCors({
     origin: frontendUrl,

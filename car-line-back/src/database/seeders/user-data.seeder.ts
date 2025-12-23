@@ -6,10 +6,6 @@ import { ExpenseCategory } from '../../expenses/entities/expense-category.entity
 import { Maintenance } from '../../maintenance/entities/maintenance.entity';
 import { Mileage } from '../../mileage/entities/mileage.entity';
 
-/**
- * Seeder для створення тестових даних користувача
- * Створює 2 машини та записи витрат, обслуговування та пробігу
- */
 export async function seedUserData(
   dataSource: DataSource,
   userEmail: string,
@@ -23,7 +19,6 @@ export async function seedUserData(
 
   console.log(`\nПошук користувача з email: ${userEmail}...`);
 
-  // Знайти користувача
   const user = await userRepository.findOne({
     where: { email: userEmail },
   });
@@ -36,7 +31,6 @@ export async function seedUserData(
 
   console.log(`✅ Користувача знайдено: ${user.email}`);
 
-  // Перевірити чи є вже машини
   const existingCars = await carRepository.find({
     where: { userId: user.id },
   });
@@ -48,7 +42,6 @@ export async function seedUserData(
     return;
   }
 
-  // Отримати всі категорії витрат
   const categories = await categoryRepository.find();
   if (categories.length === 0) {
     console.error(
@@ -59,7 +52,6 @@ export async function seedUserData(
 
   console.log('\n📝 Створення машин...');
 
-  // Створити машину 1: Toyota Camry
   const car1 = carRepository.create({
     userId: user.id,
     make: 'Toyota',
@@ -71,7 +63,6 @@ export async function seedUserData(
   await carRepository.save(car1);
   console.log(`✅ Створено машину: ${car1.make} ${car1.model} ${car1.year}`);
 
-  // Створити машину 2: Honda Civic
   const car2 = carRepository.create({
     userId: user.id,
     make: 'Honda',
@@ -83,14 +74,12 @@ export async function seedUserData(
   await carRepository.save(car2);
   console.log(`✅ Створено машину: ${car2.make} ${car2.model} ${car2.year}`);
 
-  // Функція для генерації випадкової дати за останні 6 місяців
   const randomDate = (daysBack: number) => {
     const date = new Date();
     date.setDate(date.getDate() - Math.floor(Math.random() * daysBack));
     return date.toISOString().split('T')[0];
   };
 
-  // Створити витрати для машини 1
   console.log('\n💰 Створення витрат для Toyota Camry...');
   const expensesData1 = [
     {
@@ -154,7 +143,6 @@ export async function seedUserData(
   }
   console.log(`✅ Створено ${expensesData1.length} витрат для Toyota Camry`);
 
-  // Створити витрати для машини 2
   console.log('\n💰 Створення витрат для Honda Civic...');
   const expensesData2 = [
     { categoryName: 'Паливо', amount: 980.0, description: 'Заправка на ОККО' },
@@ -218,7 +206,6 @@ export async function seedUserData(
   }
   console.log(`✅ Створено ${expensesData2.length} витрат для Honda Civic`);
 
-  // Створити записи обслуговування для машини 1
   console.log('\n🔧 Створення записів обслуговування для Toyota Camry...');
   const maintenanceData1 = [
     {
@@ -268,7 +255,6 @@ export async function seedUserData(
     `✅ Створено ${maintenanceData1.length} записів обслуговування для Toyota Camry`,
   );
 
-  // Створити записи обслуговування для машини 2
   console.log('\n🔧 Створення записів обслуговування для Honda Civic...');
   const maintenanceData2 = [
     {
@@ -318,7 +304,6 @@ export async function seedUserData(
     `✅ Створено ${maintenanceData2.length} записів обслуговування для Honda Civic`,
   );
 
-  // Створити записи пробігу для машини 1
   console.log('\n📊 Створення записів пробігу для Toyota Camry...');
   const mileageData1 = [
     { value: 85000, comment: 'Початковий пробіг' },
@@ -341,7 +326,6 @@ export async function seedUserData(
     `✅ Створено ${mileageData1.length} записів пробігу для Toyota Camry`,
   );
 
-  // Створити записи пробігу для машини 2
   console.log('\n📊 Створення записів пробігу для Honda Civic...');
   const mileageData2 = [
     { value: 45000, comment: 'Початковий пробіг' },

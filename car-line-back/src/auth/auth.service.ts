@@ -147,7 +147,6 @@ export class AuthService {
     const accessToken = this.jwtService.sign(payload, accessTokenOptions);
     const refreshToken = this.jwtService.sign(payload, refreshTokenOptions);
 
-    // Зберігаємо refresh token в БД
     const expiresAt = new Date();
     const days = parseInt(refreshExpiresIn.replace('d', ''), 10) || 7;
     expiresAt.setDate(expiresAt.getDate() + days);

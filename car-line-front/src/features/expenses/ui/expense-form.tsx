@@ -1,8 +1,16 @@
-import { IonButton, IonSpinner, IonSelect, IonSelectOption } from "@ionic/react";
+import {
+  IonButton,
+  IonSpinner,
+  IonSelect,
+  IonSelectOption,
+  useIonToast,
+} from "@ionic/react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useState } from "react";
 import { Input } from "../../../shared/ui/input";
+import { ReceiptUpload, ReceiptPhoto } from "../../../shared/ui";
 import { CreateExpenseDto } from "../model/types";
 import { useExpenseCategories } from "../api/expenses.queries";
 
@@ -26,6 +34,8 @@ export const ExpenseForm = ({
 }: ExpenseFormProps) => {
   const { data: categories, isLoading: categoriesLoading } =
     useExpenseCategories();
+  const [receiptPhotos, setReceiptPhotos] = useState<ReceiptPhoto[]>([]);
+  const [presentToast] = useIonToast();
 
   const {
     register,
@@ -42,6 +52,48 @@ export const ExpenseForm = ({
     },
   });
 
+  const handleFormSubmit = async (data: CreateExpenseDto) => {
+    // Check if any photos are still processing
+    const processingPhotos = receiptPhotos.filter(
+      (p) => p.status === "processing"
+    );
+    if (processingPhotos.length > 0) {
+      presentToast({
+        message: "Зачекайте, фото чеків ще обробляються...",
+        duration: 2500,
+        color: "warning",
+      });
+      return;
+    }
+
+    // Check if any photos have errors
+    const errorPhotos = receiptPhotos.filter((p) => p.status === "error");
+    if (errorPhotos.length > 0) {
+      presentToast({
+        message: `Виправте помилки у ${errorPhotos.length} фото перед збереженням`,
+        duration: 3000,
+        color: "danger",
+      });
+      return;
+    }
+
+    // Get only successfully processed photos
+    const successPhotos = receiptPhotos.filter((p) => p.status === "success");
+
+    // Mock: In the future, receipt photos can be sent to backend
+    console.log("Receipt photos to process:", successPhotos);
+
+    if (successPhotos.length > 0) {
+      presentToast({
+        message: `📎 Додано ${successPhotos.length} фото чеків`,
+        duration: 2000,
+        color: "success",
+      });
+    }
+
+    await onSubmit(data);
+  };
+
   if (categoriesLoading) {
     return (
       <div className="ion-text-center ion-padding">
@@ -51,7 +103,7 @@ export const ExpenseForm = ({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="ion-padding">
+    <form onSubmit={handleSubmit(handleFormSubmit)} className="ion-padding">
       <div className="ion-margin-bottom">
         <label>Категорія *</label>
         <Controller
@@ -72,7 +124,10 @@ export const ExpenseForm = ({
           )}
         />
         {errors.categoryId && (
-          <p className="ion-padding-start" style={{ color: "var(--ion-color-danger)" }}>
+          <p
+            className="ion-padding-start"
+            style={{ color: "var(--ion-color-danger)" }}
+          >
             {errors.categoryId.message}
           </p>
         )}
@@ -99,6 +154,12 @@ export const ExpenseForm = ({
         placeholder="Наприклад: Заправка в дорогу"
         error={errors.description?.message}
         {...register("description")}
+      />
+
+      <ReceiptUpload
+        maxPhotos={5}
+        onPhotosChange={setReceiptPhotos}
+        disabled={isLoading}
       />
 
       <IonButton
