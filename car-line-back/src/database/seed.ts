@@ -3,10 +3,8 @@ import { config } from 'dotenv';
 import { seedExpenseCategories } from './seeders/expense-categories.seeder';
 import { seedUserData } from './seeders/user-data.seeder';
 
-// Завантажити змінні середовища
 config();
 
-// Email користувача для наповнення тестовими даними
 const TEST_USER_EMAIL = 'btihovic@gmail.com';
 
 async function runSeed() {
@@ -26,7 +24,6 @@ async function runSeed() {
     await dataSource.initialize();
     console.log("✅ З'єднання з базою даних встановлено!");
 
-    // Запустити seeders
     console.log('\n=== Створення категорій витрат ===');
     await seedExpenseCategories(dataSource);
 

@@ -1,17 +1,6 @@
-/**
- * Приклади використання компонента ReceiptUpload
- *
- * Цей файл містить різні приклади інтеграції компонента
- * завантаження чеків у ваші форми.
- */
-
 import { useState } from "react";
 import { IonButton, IonPage, IonContent, useIonToast } from "@ionic/react";
 import { ReceiptUpload, ReceiptPhoto } from "./receipt-upload";
-
-// ============================================================================
-// ПРИКЛАД 1: Базове використання
-// ============================================================================
 
 export const BasicExample = () => {
   const [photos, setPhotos] = useState<ReceiptPhoto[]>([]);
@@ -19,16 +8,11 @@ export const BasicExample = () => {
   return <ReceiptUpload maxPhotos={5} onPhotosChange={setPhotos} />;
 };
 
-// ============================================================================
-// ПРИКЛАД 2: З валідацією перед відправкою форми
-// ============================================================================
-
 export const FormValidationExample = () => {
   const [photos, setPhotos] = useState<ReceiptPhoto[]>([]);
   const [presentToast] = useIonToast();
 
   const handleSubmit = () => {
-    // Перевірка 1: Фото ще обробляються?
     const processing = photos.filter((p) => p.status === "processing");
     if (processing.length > 0) {
       presentToast({
@@ -39,7 +23,6 @@ export const FormValidationExample = () => {
       return;
     }
 
-    // Перевірка 2: Є фото з помилками?
     const errors = photos.filter((p) => p.status === "error");
     if (errors.length > 0) {
       presentToast({
@@ -50,11 +33,9 @@ export const FormValidationExample = () => {
       return;
     }
 
-    // Перевірка 3: Отримати тільки успішні фото
     const successPhotos = photos.filter((p) => p.status === "success");
     console.log("Готові до відправки:", successPhotos);
 
-    // Відправка форми...
     presentToast({
       message: `✅ Відправлено ${successPhotos.length} чеків`,
       duration: 2000,
@@ -70,10 +51,6 @@ export const FormValidationExample = () => {
   );
 };
 
-// ============================================================================
-// ПРИКЛАД 3: З відключенням під час завантаження
-// ============================================================================
-
 export const DisabledDuringLoadingExample = () => {
   const [photos, setPhotos] = useState<ReceiptPhoto[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -82,7 +59,6 @@ export const DisabledDuringLoadingExample = () => {
     setIsLoading(true);
 
     try {
-      // Симуляція відправки
       await new Promise((resolve) => setTimeout(resolve, 2000));
       console.log("Форму відправлено з фото:", photos);
     } finally {
@@ -95,7 +71,7 @@ export const DisabledDuringLoadingExample = () => {
       <ReceiptUpload
         maxPhotos={5}
         onPhotosChange={setPhotos}
-        disabled={isLoading} // Відключити під час завантаження
+        disabled={isLoading}
       />
       <IonButton onClick={handleSubmit} disabled={isLoading}>
         {isLoading ? "Збереження..." : "Зберегти"}
@@ -103,10 +79,6 @@ export const DisabledDuringLoadingExample = () => {
     </>
   );
 };
-
-// ============================================================================
-// ПРИКЛАД 4: З обмеженням кількості фото
-// ============================================================================
 
 export const CustomLimitExample = () => {
   const [photos, setPhotos] = useState<ReceiptPhoto[]>([]);
@@ -120,10 +92,6 @@ export const CustomLimitExample = () => {
     </>
   );
 };
-
-// ============================================================================
-// ПРИКЛАД 5: Зі статистикою
-// ============================================================================
 
 export const WithStatisticsExample = () => {
   const [photos, setPhotos] = useState<ReceiptPhoto[]>([]);
@@ -154,10 +122,6 @@ export const WithStatisticsExample = () => {
   );
 };
 
-// ============================================================================
-// ПРИКЛАД 6: Повна інтеграція у форму
-// ============================================================================
-
 interface ExpenseFormData {
   amount: number;
   description: string;
@@ -174,7 +138,6 @@ export const FullFormIntegrationExample = () => {
   const [presentToast] = useIonToast();
 
   const canSubmit = () => {
-    // Форма не валідна, якщо:
     const hasProcessing = photos.some((p) => p.status === "processing");
     const hasErrors = photos.some((p) => p.status === "error");
     return !hasProcessing && !hasErrors;

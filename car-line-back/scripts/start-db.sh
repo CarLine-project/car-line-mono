@@ -1,19 +1,14 @@
 #!/bin/bash
 
-# Скрипт для запуску PostgreSQL через Docker
-
 echo "🚀 Запуск PostgreSQL..."
 
 cd "$(dirname "$0")/.." || exit
-
-# Перевірка чи запущений Docker daemon
 if ! docker info > /dev/null 2>&1; then
   echo "❌ Docker daemon не запущений!"
   echo "📝 Будь ласка, запустіть Docker Desktop або Docker daemon"
   exit 1
 fi
 
-# Перевірка чи вже запущений контейнер
 if docker-compose ps 2>/dev/null | grep -q "carline_postgres.*Up"; then
   echo "✅ PostgreSQL вже запущений"
 else
